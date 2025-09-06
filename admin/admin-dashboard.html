@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Parfait - Admin Dashboard</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom Fonts -->
+    <style>
+        @font-face {
+            font-family: sweetaffogato;
+            src: url("fonts/sweetaffogato.ttf");
+        }
+
+        @font-face {
+            font-family: sundaebite;
+            src: url("fonts/sundaebite.otf");
+        }
+
+        @font-face {
+            font-family: parfait;
+            src: url("fonts/parfait.ttf");
+        }
+
+        @font-face {
+            font-family: bakeryroast;
+            src: url("fonts/bakeryroast.ttf");
+        }
+
+        @font-face {
+            font-family: avocadodiet;
+            src: url("fonts/avocadodiet.ttf");
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(to right, #C8A8E9, #F6BCBA);
+        }
+
+        .navbar-brand {
+            font-family: bakeryroast;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            font-family: bakeryroast;
+            font-size: 1.2rem;
+            color: #ba1b59 !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #9c5479 !important;
+        }
+
+        .dashboard-section {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-family: avocadodiet;
+            color: #ba1b59;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #ba1b59, #9c5479);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .alert-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            border-left: 5px solid #ba1b59;
+        }
+
+        .alert-high {
+            border-left-color: #dc3545;
+        }
+
+        .alert-medium {
+            border-left-color: #ffc107;
+        }
+
+        .alert-low {
+            border-left-color: #17a2b8;
+        }
+
+        .recent-activity {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .activity-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-time {
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+
+        .btn-primary {
+            background-color: #ba1b59;
+            border-color: #ba1b59;
+        }
+
+        .btn-primary:hover {
+            background-color: #9c5479;
+            border-color: #9c5479;
+        }
+
+        .footer {
+            background-color: #ffcae9;
+            color: #ba1b59;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #ba1b59;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #ba1b59;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-action-btn {
+            background: white;
+            border: 2px solid #ba1b59;
+            color: #ba1b59;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quick-action-btn:hover {
+            background: #ba1b59;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .quick-action-btn i {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffcae9;">
+        <div class="container">
+            <a class="navbar-brand" href="../public/index.html">
+                <img src="https://assets.onecompiler.app/42rxknjmk/42xz8547e/Pitch%20Parfait%20Logo.png" 
+                     height="60" width="80" alt="Pitch Parfait Logo">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../public/index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../public/about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../public/menu.html">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../public/directory.html">Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../public/faqs.html">FAQs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inventory.html">Inventory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="admin-dashboard.html">Dashboard</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../public/cart.html">
+                            <i class="bi bi-cart3" style="font-size: 1.5rem;"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../public/profile.html">
+                            <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Dashboard Content -->
+    <div class="container">
+        <div class="dashboard-section">
+            <h2 class="section-title">Admin Dashboard</h2>
+            
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <a href="inventory.html" class="quick-action-btn">
+                    <i class="bi bi-boxes"></i>
+                    <span>Manage Inventory</span>
+                </a>
+                <a href="menu.html" class="quick-action-btn">
+                    <i class="bi bi-menu-button-wide"></i>
+                    <span>View Menu</span>
+                </a>
+                <a href="#" class="quick-action-btn" onclick="generateReport()">
+                    <i class="bi bi-file-earmark-text"></i>
+                    <span>Generate Report</span>
+                </a>
+                <a href="#" class="quick-action-btn" onclick="exportData()">
+                    <i class="bi bi-download"></i>
+                    <span>Export Data</span>
+                </a>
+            </div>
+
+            <!-- Statistics Overview -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-items">0</div>
+                        <div class="stat-label">Total Items</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number" id="low-stock-items">0</div>
+                        <div class="stat-label">Low Stock</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number" id="out-of-stock-items">0</div>
+                        <div class="stat-label">Out of Stock</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-value">₱0</div>
+                        <div class="stat-label">Total Value</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="chart-container">
+                        <h5 class="mb-3">Stock Levels by Category</h5>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="chart-container">
+                        <h5 class="mb-3">Stock Status Distribution</h5>
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alerts and Recent Activity -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="alert-card">
+                        <h5 class="mb-3">
+                            <i class="bi bi-exclamation-triangle"></i> 
+                            Critical Alerts
+                        </h5>
+                        <div id="alerts-container">
+                            <!-- Alerts will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="recent-activity">
+                        <h5 class="mb-3">
+                            <i class="bi bi-clock-history"></i> 
+                            Recent Activity
+                        </h5>
+                        <div id="activity-container">
+                            <!-- Activity will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Low Stock Items Table -->
+            <div class="chart-container">
+                <h5 class="mb-3">
+                    <i class="bi bi-exclamation-circle"></i> 
+                    Low Stock Items
+                </h5>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Category</th>
+                                <th>Current Stock</th>
+                                <th>Min Stock</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="low-stock-table">
+                            <!-- Low stock items will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-2">PRIVACY STATEMENT &nbsp;&nbsp;|&nbsp;&nbsp;TERMS & CONDITIONS &nbsp;&nbsp;|&nbsp;&nbsp;ACCESSIBILITY STATEMENT &nbsp;&nbsp;|&nbsp;&nbsp;SITEMAP</p>
+                    <p class="mb-2">&copy; The PP, Pitch Parfait, Ice cream shaped logo, PP logo, Classic Swirls, Special Swirls, Royal Swirls, and other related trademarks are owned by Pitch Parfait Enterprises © 2024. Products and Menus may vary by location; not all products listed are available in all locations.</p>
+                    <p>For more information, visit our <a href="about.html">About Us</a> page.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Admin Authentication -->
+    <script src="admin-auth.js"></script>
+    
+    <!-- Firebase Configuration -->
+    <script type="module" src="../database/firebase-config.js"></script>
+    
+    <!-- Inventory Alerts -->
+    <script type="module" src="../database/inventory-alerts.js"></script>
+    
+    <!-- Admin Dashboard Script -->
+    <script type="module">
+        import { firebase } from '../database/firebase-config.js';
+
+        let inventoryData = [];
+        let categoryChart = null;
+        let statusChart = null;
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+        });
+
+        async function initializeDashboard() {
+            try {
+                showLoading(true);
+                await loadInventoryData();
+                updateStatistics();
+                createCharts();
+                loadAlerts();
+                loadLowStockItems();
+                loadRecentActivity();
+            } catch (error) {
+                console.error('Error initializing dashboard:', error);
+                showError('Failed to load dashboard data: ' + error.message);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function loadInventoryData() {
+            try {
+                const inventoryRef = firebase.collection(firebase.db, 'inventory');
+                const snapshot = await firebase.getDocs(inventoryRef);
+                
+                inventoryData = [];
+                snapshot.forEach((doc) => {
+                    inventoryData.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+            } catch (error) {
+                console.error('Error loading inventory data:', error);
+                throw error;
+            }
+        }
+
+        function updateStatistics() {
+            const totalItems = inventoryData.length;
+            const lowStockItems = inventoryData.filter(item => item.quantity <= item.minStock && item.quantity > 0).length;
+            const outOfStockItems = inventoryData.filter(item => item.quantity === 0).length;
+            const totalValue = inventoryData.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            document.getElementById('total-items').textContent = totalItems;
+            document.getElementById('low-stock-items').textContent = lowStockItems;
+            document.getElementById('out-of-stock-items').textContent = outOfStockItems;
+            document.getElementById('total-value').textContent = `₱${totalValue.toFixed(2)}`;
+        }
+
+        function createCharts() {
+            createCategoryChart();
+            createStatusChart();
+        }
+
+        function createCategoryChart() {
+            const ctx = document.getElementById('categoryChart').getContext('2d');
+            
+            // Group items by category
+            const categoryData = {};
+            inventoryData.forEach(item => {
+                if (!categoryData[item.category]) {
+                    categoryData[item.category] = 0;
+                }
+                categoryData[item.category] += item.quantity;
+            });
+
+            const labels = Object.keys(categoryData);
+            const data = Object.values(categoryData);
+
+            categoryChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: [
+                            '#ba1b59',
+                            '#9c5479',
+                            '#C8A8E9',
+                            '#F6BCBA',
+                            '#ffcae9',
+                            '#e9ecef'
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function createStatusChart() {
+            const ctx = document.getElementById('statusChart').getContext('2d');
+            
+            const highStock = inventoryData.filter(item => item.quantity > item.minStock * 2).length;
+            const mediumStock = inventoryData.filter(item => item.quantity <= item.minStock * 2 && item.quantity > item.minStock).length;
+            const lowStock = inventoryData.filter(item => item.quantity <= item.minStock && item.quantity > 0).length;
+            const outOfStock = inventoryData.filter(item => item.quantity === 0).length;
+
+            statusChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['High Stock', 'Medium Stock', 'Low Stock', 'Out of Stock'],
+                    datasets: [{
+                        data: [highStock, mediumStock, lowStock, outOfStock],
+                        backgroundColor: [
+                            '#28a745',
+                            '#ffc107',
+                            '#fd7e14',
+                            '#dc3545'
+                        ],
+                        borderWidth: 1,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function loadAlerts() {
+            const alertsContainer = document.getElementById('alerts-container');
+            
+            const criticalItems = inventoryData.filter(item => item.quantity === 0);
+            const lowStockItems = inventoryData.filter(item => item.quantity <= item.minStock && item.quantity > 0);
+
+            let alertsHtml = '';
+
+            if (criticalItems.length === 0 && lowStockItems.length === 0) {
+                alertsHtml = '<div class="text-success"><i class="bi bi-check-circle"></i> No critical alerts</div>';
+            } else {
+                criticalItems.forEach(item => {
+                    alertsHtml += `
+                        <div class="alert alert-danger alert-sm mb-2">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <strong>${item.name}</strong> is out of stock!
+                        </div>
+                    `;
+                });
+
+                lowStockItems.slice(0, 3).forEach(item => {
+                    alertsHtml += `
+                        <div class="alert alert-warning alert-sm mb-2">
+                            <i class="bi bi-exclamation-circle"></i>
+                            <strong>${item.name}</strong> is running low (${item.quantity} remaining)
+                        </div>
+                    `;
+                });
+            }
+
+            alertsContainer.innerHTML = alertsHtml;
+        }
+
+        function loadLowStockItems() {
+            const tableBody = document.getElementById('low-stock-table');
+            
+            const lowStockItems = inventoryData
+                .filter(item => item.quantity <= item.minStock)
+                .sort((a, b) => a.quantity - b.quantity);
+
+            if (lowStockItems.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="6" class="text-center text-success">No low stock items</td></tr>';
+                return;
+            }
+
+            tableBody.innerHTML = lowStockItems.map(item => {
+                const status = item.quantity === 0 ? 'Out of Stock' : 'Low Stock';
+                const statusClass = item.quantity === 0 ? 'text-danger' : 'text-warning';
+                
+                return `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.category}</td>
+                        <td>${item.quantity}</td>
+                        <td>${item.minStock}</td>
+                        <td><span class="${statusClass}">${status}</span></td>
+                        <td>
+                            <a href="inventory.html" class="btn btn-sm btn-primary">
+                                <i class="bi bi-pencil"></i> Manage
+                            </a>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function loadRecentActivity() {
+            const activityContainer = document.getElementById('activity-container');
+            
+            // Simulate recent activity (in a real app, this would come from a logs collection)
+            const activities = [
+                { action: 'Item updated', item: 'Choco Chip', time: '2 minutes ago', type: 'update' },
+                { action: 'Stock added', item: 'Mango Cheesecake', time: '15 minutes ago', type: 'add' },
+                { action: 'Low stock alert', item: 'Berry Choco', time: '1 hour ago', type: 'alert' },
+                { action: 'Item added', item: 'New York Cheesecake', time: '2 hours ago', type: 'add' },
+                { action: 'Stock removed', item: 'Oreo Swirl', time: '3 hours ago', type: 'remove' }
+            ];
+
+            const activitiesHtml = activities.map(activity => `
+                <div class="activity-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${activity.action}</strong>
+                            <div class="text-muted">${activity.item}</div>
+                        </div>
+                        <div class="activity-time">${activity.time}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            activityContainer.innerHTML = activitiesHtml;
+        }
+
+        function generateReport() {
+            // Generate a simple report
+            const reportData = {
+                totalItems: inventoryData.length,
+                lowStockItems: inventoryData.filter(item => item.quantity <= item.minStock && item.quantity > 0).length,
+                outOfStockItems: inventoryData.filter(item => item.quantity === 0).length,
+                totalValue: inventoryData.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                generatedAt: new Date().toISOString()
+            };
+
+            const reportText = `
+Pitch Parfait Inventory Report
+Generated: ${new Date().toLocaleString()}
+
+Total Items: ${reportData.totalItems}
+Low Stock Items: ${reportData.lowStockItems}
+Out of Stock Items: ${reportData.outOfStockItems}
+Total Inventory Value: ₱${reportData.totalValue.toFixed(2)}
+
+Low Stock Items:
+${inventoryData.filter(item => item.quantity <= item.minStock).map(item => 
+    `- ${item.name}: ${item.quantity} (min: ${item.minStock})`
+).join('\n')}
+            `;
+
+            // Download as text file
+            const blob = new Blob([reportText], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `inventory-report-${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function exportData() {
+            // Export inventory data as CSV
+            const csvHeaders = 'Name,Category,Price,Quantity,Min Stock,Max Stock,Description,Last Updated\n';
+            const csvData = inventoryData.map(item => 
+                `"${item.name}","${item.category}",${item.price},${item.quantity},${item.minStock},${item.maxStock || ''},"${item.description || ''}","${item.lastUpdated?.toDate?.()?.toISOString() || ''}"`
+            ).join('\n');
+
+            const csvContent = csvHeaders + csvData;
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `inventory-export-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function showLoading(show) {
+            // Add loading indicator if needed
+        }
+
+        function showError(message) {
+            alert('Error: ' + message);
+        }
+
+        // Make functions globally available
+        window.generateReport = generateReport;
+        window.exportData = exportData;
+    </script>
+</body>
+</html>

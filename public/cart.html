@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Parfait - Cart</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Custom Fonts -->
+    <style>
+        @font-face {
+            font-family: sweetaffogato;
+            src: url("fonts/sweetaffogato.ttf");
+        }
+
+        @font-face {
+            font-family: sundaebite;
+            src: url("fonts/sundaebite.otf");
+        }
+
+        @font-face {
+            font-family: parfait;
+            src: url("fonts/parfait.ttf");
+        }
+
+        @font-face {
+            font-family: bakeryroast;
+            src: url("fonts/bakeryroast.ttf");
+        }
+
+        @font-face {
+            font-family: avocadodiet;
+            src: url("fonts/avocadodiet.ttf");
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(to right, #C8A8E9, #F6BCBA);
+        }
+
+        .navbar-brand {
+            font-family: bakeryroast;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            font-family: bakeryroast;
+            font-size: 1.2rem;
+            color: #ba1b59 !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #9c5479 !important;
+        }
+
+        .cart-section {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-family: avocadodiet;
+            color: #ba1b59;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .cart-item {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            background-color: #ba1b59;
+            border-color: #ba1b59;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .quantity-btn:hover {
+            background-color: #9c5479;
+            border-color: #9c5479;
+            color: white;
+        }
+
+        .quantity-display {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            min-width: 50px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .remove-btn {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: white;
+        }
+
+        .remove-btn:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+            color: white;
+        }
+
+        .total-section {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ba1b59;
+        }
+
+        .total-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ba1b59;
+        }
+
+        .checkout-btn {
+            background-color: #ba1b59;
+            border-color: #ba1b59;
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 10px;
+        }
+
+        .checkout-btn:hover {
+            background-color: #9c5479;
+            border-color: #9c5479;
+            color: white;
+        }
+
+        .checkout-btn:disabled {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+            color: #ba1b59;
+        }
+
+        .empty-cart i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .receipt {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #dee2e6;
+        }
+
+        .receipt h3 {
+            color: #ba1b59;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .receipt-item {
+            border-bottom: 1px solid #e9ecef;
+            padding: 0.5rem 0;
+        }
+
+        .footer {
+            background-color: #ffcae9;
+            color: #ba1b59;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #ba1b59;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-primary {
+            background-color: #ba1b59;
+            border-color: #ba1b59;
+        }
+
+        .btn-primary:hover {
+            background-color: #9c5479;
+            border-color: #9c5479;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffcae9;">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://assets.onecompiler.app/42rxknjmk/42xz8547e/Pitch%20Parfait%20Logo.png" 
+                     height="60" width="80" alt="Pitch Parfait Logo">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="menu.html">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="directory.html">Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="faqs.html">FAQs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inventory.html">Inventory</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="cart.html">
+                            <i class="bi bi-cart3" style="font-size: 1.5rem;"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">
+                            <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Content -->
+    <div class="container">
+        <div class="cart-section">
+            <h2 class="section-title">Your Cart</h2>
+            
+            <!-- Cart Items Container -->
+            <div id="cart-container">
+                <!-- Cart items will be dynamically inserted here -->
+            </div>
+            
+            <!-- Empty Cart Message -->
+            <div id="empty-cart-message" class="empty-cart" style="display: none;">
+                <i class="bi bi-cart-x"></i>
+                <h3>Your cart is empty</h3>
+                <p>Add some delicious treats to get started!</p>
+                <a href="menu.html" class="btn btn-primary">Browse Menu</a>
+            </div>
+            
+            <!-- Total and Checkout -->
+            <div id="total-section" class="total-section" style="display: none;">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h4 class="total-price mb-0" id="total-price">Total: ₱0.00</h4>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button class="btn checkout-btn" id="checkout-btn" onclick="showPaymentOptions()">
+                            <i class="bi bi-credit-card"></i> Proceed to Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Back to Menu Button -->
+            <div class="text-center mt-4">
+                <a href="menu.html" class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left"></i> Back to Menu
+                </a>
+            </div>
+            
+            <!-- Receipt Section -->
+            <div id="receipt" class="receipt" style="display: none;">
+                <!-- Receipt content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-2">PRIVACY STATEMENT &nbsp;&nbsp;|&nbsp;&nbsp;TERMS & CONDITIONS &nbsp;&nbsp;|&nbsp;&nbsp;ACCESSIBILITY STATEMENT &nbsp;&nbsp;|&nbsp;&nbsp;SITEMAP</p>
+                    <p class="mb-2">&copy; The PP, Pitch Parfait, Ice cream shaped logo, PP logo, Classic Swirls, Special Swirls, Royal Swirls, and other related trademarks are owned by Pitch Parfait Enterprises © 2024. Products and Menus may vary by location; not all products listed are available in all locations.</p>
+                    <p>For more information, visit our <a href="about.html">About Us</a> page.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase Configuration -->
+    <script type="module" src="../database/firebase-config.js"></script>
+    
+    <!-- Cart functionality with inventory integration -->
+    <script type="module">
+        import { firebase } from '../database/firebase-config.js';
+
+        let inventoryData = {};
+
+        // Initialize cart with inventory data
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCart();
+        });
+
+        async function initializeCart() {
+            try {
+                await loadInventory();
+                displayCart();
+            } catch (error) {
+                console.error('Error loading inventory:', error);
+            }
+        }
+
+        async function loadInventory() {
+            try {
+                const inventoryRef = firebase.collection(firebase.db, 'inventory');
+                const snapshot = await firebase.getDocs(inventoryRef);
+                
+                inventoryData = {};
+                snapshot.forEach((doc) => {
+                    const item = doc.data();
+                    inventoryData[item.name] = {
+                        id: doc.id,
+                        quantity: item.quantity,
+                        minStock: item.minStock,
+                        category: item.category
+                    };
+                });
+            } catch (error) {
+                console.error('Error loading inventory:', error);
+            }
+        }
+
+        function findInventoryItem(cartItemName) {
+            // Try to find exact match first
+            for (const [inventoryName, data] of Object.entries(inventoryData)) {
+                if (inventoryName.toLowerCase().includes(cartItemName.toLowerCase()) ||
+                    cartItemName.toLowerCase().includes(inventoryName.toLowerCase())) {
+                    return data;
+                }
+            }
+            return null;
+        }
+    </script>
+    
+    <script>
+        function displayCart() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let cartContainer = document.getElementById('cart-container');
+            let totalPrice = 0;
+            let checkoutBtn = document.getElementById('checkout-btn');
+            let emptyCartMessage = document.getElementById('empty-cart-message');
+            let totalSection = document.getElementById('total-section');
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = '';
+                document.getElementById('total-price').innerText = 'Total: ₱0.00';
+                checkoutBtn.disabled = true;
+                emptyCartMessage.style.display = 'block';
+                totalSection.style.display = 'none';
+                return;
+            }
+
+            cartContainer.innerHTML = '';
+            cart.forEach((item, index) => {
+                let div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h5 class="mb-1">${item.name}</h5>
+                            <p class="mb-0 text-muted">₱${item.price} each</p>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="quantity-controls">
+                                <button class="btn quantity-btn" onclick="updateQuantity(${index}, -1)">
+                                    <i class="bi bi-dash"></i>
+                                </button>
+                                <span class="quantity-display">${item.quantity}</span>
+                                <button class="btn quantity-btn" onclick="updateQuantity(${index}, 1)">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-2 text-end">
+                            <strong>₱${(item.price * item.quantity).toFixed(2)}</strong>
+                        </div>
+                        <div class="col-md-1 text-end">
+                            <button class="btn remove-btn" onclick="removeItem(${index})">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                cartContainer.appendChild(div);
+                totalPrice += item.price * item.quantity;
+            });
+
+            document.getElementById('total-price').innerText = `Total: ₱${totalPrice.toFixed(2)}`;
+            checkoutBtn.disabled = false;
+            emptyCartMessage.style.display = 'none';
+            totalSection.style.display = 'block';
+        }
+
+        function updateQuantity(index, change) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let item = cart[index];
+            const newQuantity = item.quantity + change;
+
+            // Check inventory availability
+            const stockInfo = findInventoryItem(item.name);
+            if (stockInfo && newQuantity > stockInfo.quantity) {
+                alert(`Sorry, only ${stockInfo.quantity} items available in stock.`);
+                return;
+            }
+
+            if (newQuantity <= 0) {
+                cart.splice(index, 1);
+            } else {
+                item.quantity = newQuantity;
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+        }
+
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+        }
+
+        function showPaymentOptions() {
+            let totalPrice = calculateTotalPrice();
+            let discount = 0;
+
+            let hasDiscount = confirm("Do you have a PWD/Senior Discount?");
+            if (hasDiscount) {
+                let idNumber = prompt("Please enter your PWD/Senior ID number:");
+                if (idNumber) {
+                    discount = totalPrice * 0.20;
+                    totalPrice -= discount;
+                    alert(`Discount Applied: ₱${discount.toFixed(2)}\nNew Total: ₱${totalPrice.toFixed(2)}`);
+                } else {
+                    alert("Invalid ID. Proceeding without discount.");
+                }
+            }
+
+            let validChoice = false;
+            while (!validChoice) {
+                let userChoice = prompt(`Choose payment option:\n1. Pay Here/Online Cash\n2. Pay Later/Delivery\nTotal Price: ₱${totalPrice.toFixed(2)}`);
+                if (userChoice == 1) {
+                    validChoice = true;
+                    handleOnlineCash(totalPrice, discount);
+                } else if (userChoice == 2) {
+                    validChoice = true;
+                    handleDelivery(totalPrice, discount);
+                } else {
+                    alert("Invalid option. Please choose 1 or 2.");
+                }
+            }
+        }
+
+        function handleOnlineCash(totalPrice, discount) {
+            let amountPaid = prompt(`Enter amount to pay: (Total: ₱${totalPrice.toFixed(2)})`);
+
+            if (!amountPaid || isNaN(amountPaid)) {
+                alert("Please enter a valid amount.");
+                return;
+            }
+
+            amountPaid = parseFloat(amountPaid);
+
+            if (amountPaid < totalPrice) {
+                alert("Insufficient amount. The amount should be greater than or equal to the total price.");
+                return;
+            }
+
+            let change = amountPaid - totalPrice;
+            alert(`Change to be returned: ₱${change.toFixed(2)}`);
+            generateReceipt('Pay Here/Online Cash', totalPrice, amountPaid, discount, change);
+        }
+
+        function handleDelivery(totalPrice, discount) {
+            generateReceipt('Pay Later/Delivery', totalPrice, 0, discount);
+        }
+
+        function generateReceipt(paymentMethod, totalPrice, amountPaid, discount, change = 0) {
+            let receipt = document.getElementById('receipt');
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            let now = new Date();
+            let timestamp = now.toLocaleString();
+
+            let receiptContent = `
+                <h3><i class="bi bi-receipt"></i> Receipt</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Date & Time:</strong> ${timestamp}</p>
+                        <p><strong>Payment Method:</strong> ${paymentMethod}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Total Price (Before Discount):</strong> ₱${(totalPrice + discount).toFixed(2)}</p>
+                        ${discount > 0 ? `<p><strong>Discount:</strong> -₱${discount.toFixed(2)}</p>` : ''}
+                        <p><strong>Total Price (After Discount):</strong> ₱${totalPrice.toFixed(2)}</p>
+            `;
+
+            if (paymentMethod === 'Pay Here/Online Cash') {
+                receiptContent += `
+                        <p><strong>Amount Paid:</strong> ₱${amountPaid.toFixed(2)}</p>
+                        <p><strong>Change:</strong> ₱${change.toFixed(2)}</p>
+                `;
+            }
+
+            receiptContent += `
+                    </div>
+                </div>
+                <hr>
+                <h5>Items:</h5>
+                <div class="receipt-items">
+            `;
+            
+            cart.forEach(item => {
+                let itemTotal = item.price * item.quantity;
+                receiptContent += `
+                    <div class="receipt-item">
+                        <div class="row">
+                            <div class="col-md-8">${item.name}</div>
+                            <div class="col-md-2 text-center">${item.quantity}</div>
+                            <div class="col-md-2 text-end">₱${itemTotal.toFixed(2)}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            receiptContent += `
+                </div>
+                <hr>
+                <div class="text-center">
+                    <h4 class="text-success">Thank you for your purchase!</h4>
+                    ${paymentMethod === 'Pay Later/Delivery' ? '<p class="text-info">Your order will be delivered soon!</p>' : ''}
+                </div>
+            `;
+
+            receipt.innerHTML = receiptContent;
+            receipt.style.display = 'block';
+            
+            // Clear cart after successful purchase
+            localStorage.removeItem('cart');
+            displayCart();
+        }
+
+        function calculateTotalPrice() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+        }
+
+        // Initialize cart display when page loads
+        displayCart();
+    </script>
+</body>
+</html>

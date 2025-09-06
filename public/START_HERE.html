@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Parfait - Start Here</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <style>
+        body {
+            background: linear-gradient(to right, #C8A8E9, #F6BCBA);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .welcome-section {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .page-card {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border-left: 5px solid #ba1b59;
+        }
+        
+        .page-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .page-icon {
+            font-size: 2.5rem;
+            color: #ba1b59;
+            margin-bottom: 1rem;
+        }
+        
+        .welcome-title {
+            color: #ba1b59;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .btn-page {
+            background-color: #ba1b59;
+            border-color: #ba1b59;
+            color: white;
+            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-page:hover {
+            background-color: #9c5479;
+            border-color: #9c5479;
+            color: white;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-section">
+            <h1 class="welcome-title">
+                <i class="bi bi-star-fill"></i> Welcome to Pitch Parfait
+            </h1>
+            <p class="text-center text-muted mb-5" style="font-size: 1.2rem;">
+                Your Bootstrap-powered ice cream parlor website is ready!
+            </p>
+            
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="page-card text-center">
+                        <i class="bi bi-house page-icon"></i>
+                        <h4>Home Page</h4>
+                        <p>Start here to see the main landing page with hero section and featured products.</p>
+                        <a href="index.html" class="btn-page">
+                            <i class="bi bi-arrow-right"></i> Go to Home
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="page-card text-center">
+                        <i class="bi bi-menu-button-wide page-icon"></i>
+                        <h4>Menu</h4>
+                        <p>Browse our complete menu with all ice cream flavors, cakes, and drinks.</p>
+                        <a href="menu.html" class="btn-page">
+                            <i class="bi bi-arrow-right"></i> View Menu
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="page-card text-center">
+                        <i class="bi bi-info-circle page-icon"></i>
+                        <h4>About Us</h4>
+                        <p>Learn about our company, mission, vision, and meet our amazing team.</p>
+                        <a href="about.html" class="btn-page">
+                            <i class="bi bi-arrow-right"></i> About Us
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="page-card text-center">
+                        <i class="bi bi-cart3 page-icon"></i>
+                        <h4>Shopping Cart</h4>
+                        <p>Add items to cart, manage quantities, and proceed to checkout.</p>
+                        <a href="cart.html" class="btn-page">
+                            <i class="bi bi-arrow-right"></i> View Cart
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="page-card text-center">
+                        <i class="bi bi-person-circle page-icon"></i>
+                        <h4>Login/Register</h4>
+                        <p>Access your account or create a new one with our modern forms.</p>
+                        <a href="profile.html" class="btn-page">
+                            <i class="bi bi-arrow-right"></i> Login/Register
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="page-card text-center">
+                        <i class="bi bi-question-circle page-icon"></i>
+                        <h4>FAQs</h4>
+                        <p>Find answers to frequently asked questions in our interactive FAQ section.</p>
+                        <a href="faqs.html" class="btn-page">
+                            <i class="bi bi-arrow-right"></i> View FAQs
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="page-card text-center">
+                        <i class="bi bi-clipboard-data page-icon"></i>
+                        <h4>Nutrition Facts</h4>
+                        <p>Check detailed nutritional information for all our products.</p>
+                        <a href="facts.html" class="btn-page">
+                            <i class="bi bi-arrow-right"></i> Nutrition Info
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="page-card text-center">
+                        <i class="bi bi-geo-alt page-icon"></i>
+                        <h4>Branch Locations</h4>
+                        <p>Find our store locations with contact information and directions.</p>
+                        <a href="directory.html" class="btn-page">
+                            <i class="bi bi-arrow-right"></i> Find Stores
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <div class="alert alert-info" role="alert">
+                    <h4 class="alert-heading">
+                        <i class="bi bi-lightbulb"></i> Quick Tips
+                    </h4>
+                    <ul class="text-start mb-0">
+                        <li><strong>Home File:</strong> The main home page is <code>index.html</code></li>
+                        <li><strong>Bootstrap Test:</strong> Check <code>test.html</code> to verify Bootstrap is working</li>
+                        <li><strong>Demo Page:</strong> Visit <code>demo.html</code> to see Bootstrap features</li>
+                        <li><strong>Mobile Friendly:</strong> All pages are fully responsive</li>
+                        <li><strong>Latest Bootstrap:</strong> Using Bootstrap 5.3.2 with latest features</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

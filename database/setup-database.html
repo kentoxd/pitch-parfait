@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initialize Database (No Auth) - Pitch Parfait</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(to right, #C8A8E9, #F6BCBA);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+        
+        .init-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .status {
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            font-weight: bold;
+        }
+        
+        .status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status.warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .status.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .btn-primary {
+            background-color: #ba1b59;
+            border-color: #ba1b59;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            margin: 0.5rem;
+        }
+        
+        .btn-primary:hover {
+            background-color: #9c5479;
+            border-color: #9c5479;
+        }
+        
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            margin: 0.5rem;
+        }
+        
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #212529;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            margin: 0.5rem;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .progress {
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="init-card">
+            <h1 class="mb-4" style="color: #ba1b59; text-align: center;">
+                <i class="bi bi-database-add"></i> Initialize Database (No Auth)
+            </h1>
+            
+            <p class="text-center mb-4">Set up your Pitch Parfait inventory database without authentication</p>
+            
+            <div id="status" class="status info">
+                🔄 Loading Firebase...
+            </div>
+            
+            <div class="text-center mb-4">
+                <button class="btn btn-success" onclick="initializeDatabase()" id="initBtn" disabled>
+                    <i class="bi bi-database-add"></i> Initialize Database with Sample Data
+                </button>
+                
+                <button class="btn btn-primary" onclick="checkDatabase()" id="checkBtn" disabled>
+                    <i class="bi bi-database-check"></i> Check Database
+                </button>
+                
+                <button class="btn btn-warning" onclick="clearDatabase()" id="clearBtn" disabled>
+                    <i class="bi bi-database-dash"></i> Clear All Data
+                </button>
+            </div>
+            
+            <div class="progress" id="progress" style="display: none;">
+                <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Processing...</p>
+            </div>
+            
+            <div class="log" id="log">
+                <div>Initializing database setup without authentication...</div>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <a href="add-stock-standalone.html" class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left"></i> Back to Add Stock
+                </a>
+                <a href="inventory.html" class="btn btn-outline-primary">
+                    <i class="bi bi-boxes"></i> View Inventory
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        let logDiv = document.getElementById('log');
+        let statusDiv = document.getElementById('status');
+        let loadingDiv = document.getElementById('loading');
+        let progressDiv = document.getElementById('progress');
+        let progressBar = progressDiv.querySelector('.progress-bar');
+        
+        let firebaseApp = null;
+        let firebaseDB = null;
+        let isReady = false;
+        
+        // Sample inventory data
+        const sampleData = [
+            // Classic Swirls
+            { name: "Choco Chip", category: "Classic Swirls", price: 55, quantity: 20, minStock: 10, maxStock: 100, description: "Rich chocolate ice cream with chocolate chips", image: "https://assets.onecompiler.app/42vc5shrr/42z65dqwa/with%20logo_ChocoChip-1-removebg-preview.png" },
+            { name: "Choco Extreme", category: "Classic Swirls", price: 55, quantity: 20, minStock: 10, maxStock: 100, description: "Intense chocolate flavor with extra chocolate pieces", image: "https://assets.onecompiler.app/42vc5shrr/42z65dqwa/with%20logo_ChocoExtreme-removebg-preview.png" },
+            { name: "Double Dutch", category: "Classic Swirls", price: 55, quantity: 20, minStock: 10, maxStock: 100, description: "Classic vanilla and chocolate combination", image: "https://assets.onecompiler.app/42vc5shrr/42z65dqwa/with%20logo_DoubleDutch-removebg-preview.png" },
+            { name: "Mango Cheesecake", category: "Classic Swirls", price: 55, quantity: 20, minStock: 10, maxStock: 100, description: "Creamy mango ice cream with cheesecake pieces", image: "https://assets.onecompiler.app/42vc5shrr/42z65dqwa/with%20logo_MangoCheesecake-removebg-preview.png" },
+            
+            // Special Swirls
+            { name: "Berry Choco", category: "Special Swirls", price: 60, quantity: 20, minStock: 8, maxStock: 80, description: "Mixed berry ice cream with chocolate swirls", image: "https://assets.onecompiler.app/42rxknjmk/42zmfprf9/berry-choco.png" },
+            { name: "Chocolate Chip Cookie Dough", category: "Special Swirls", price: 60, quantity: 20, minStock: 8, maxStock: 80, description: "Vanilla ice cream with cookie dough pieces", image: "https://assets.onecompiler.app/42rxknjmk/42zmfprf9/chocolate-chip-cookie-dough-swirls.png" },
+            { name: "French Silk Pie", category: "Special Swirls", price: 60, quantity: 20, minStock: 8, maxStock: 80, description: "Silky chocolate ice cream with pie crust pieces", image: "https://assets.onecompiler.app/42rxknjmk/42zmfprf9/french-silk-pie.png" },
+            { name: "Turtle Pecan", category: "Special Swirls", price: 60, quantity: 20, minStock: 8, maxStock: 80, description: "Caramel ice cream with pecans and chocolate", image: "https://assets.onecompiler.app/42rxknjmk/42zmfprf9/Turtle-Pecan-Swirls.png" },
+            
+            // Royal Swirls
+            { name: "New York Cheesecake Swirl", category: "Royal Swirls", price: 75, quantity: 20, minStock: 5, maxStock: 50, description: "Premium cheesecake ice cream with graham cracker swirls", image: "https://assets.onecompiler.app/42vc5shrr/42zmby6kh/Royal-New-York-Cheesecake-Swirls.png" },
+            { name: "Oreo Swirl", category: "Royal Swirls", price: 75, quantity: 20, minStock: 5, maxStock: 50, description: "Vanilla ice cream with Oreo cookie pieces", image: "https://assets.onecompiler.app/42vc5shrr/42zmby6kh/Royal-Oreo-Swirls.png" },
+            { name: "Reeses Brownies Swirl", category: "Royal Swirls", price: 75, quantity: 20, minStock: 5, maxStock: 50, description: "Chocolate ice cream with Reese's pieces and brownie chunks", image: "https://assets.onecompiler.app/42vc5shrr/42zmby6kh/Royal-Reese_s-Brownie-Swirls.png" },
+            { name: "Ultimate Choco Brownie Swirl", category: "Royal Swirls", price: 75, quantity: 20, minStock: 5, maxStock: 50, description: "Rich chocolate ice cream with fudge brownie pieces", image: "https://assets.onecompiler.app/42vc5shrr/42zmeqcx4/Royal-Ultimate-Choco-Brownie-Swirls.png" },
+            
+            // Cakes
+            { name: "Ice Cream Chocolate Cake Extreme", category: "Cakes", price: 899, quantity: 20, minStock: 2, maxStock: 20, description: "6-inch chocolate ice cream cake with extreme chocolate flavor", image: "https://assets.onecompiler.app/42vc5shrr/42yyv2knc/DQ-Blizzard-Ice-Cream-Cake-Chocolate-Extreme.png" },
+            { name: "Ice Cream Chocolate Cake KitKat", category: "Cakes", price: 899, quantity: 20, minStock: 2, maxStock: 20, description: "6-inch chocolate ice cream cake with KitKat pieces", image: "https://assets.onecompiler.app/42vc5shrr/42yyv2knc/DQ-Blizzard-Ice-Cream-Cake-Chocolate-KitKat.png" },
+            { name: "Ice Cream Choco Shavings", category: "Cakes", price: 899, quantity: 20, minStock: 2, maxStock: 20, description: "6-inch chocolate ice cream cake with chocolate shavings", image: "https://assets.onecompiler.app/42vc5shrr/42yyv2knc/DQ-Ice-Cream-Choco-Shavings.png" },
+            { name: "Purple Fudge Cheesecake", category: "Cakes", price: 899, quantity: 20, minStock: 2, maxStock: 20, description: "6-inch purple fudge cheesecake ice cream cake", image: "https://assets.onecompiler.app/42vc5shrr/42yyv2knc/WEB_Purple-Fudge-Cheesecake-8-04-1024x1024.png" },
+            
+            // Parfait
+            { name: "Berry Parfait", category: "Parfait", price: 99, quantity: 20, minStock: 5, maxStock: 50, description: "Layered berry parfait with yogurt and granola", image: "https://assets.onecompiler.app/42rxknjmk/42zqumkdw/Berry%20Parfait.png" },
+            { name: "Nutty Chocolate Parfait", category: "Parfait", price: 99, quantity: 20, minStock: 5, maxStock: 50, description: "Chocolate parfait with nuts and whipped cream", image: "https://assets.onecompiler.app/42rxknjmk/42zqumkdw/Nutty-Chocolate-Candy%20Parfait.png" },
+            { name: "Oreo Mudpie Parfait", category: "Parfait", price: 99, quantity: 20, minStock: 5, maxStock: 50, description: "Oreo mudpie parfait with chocolate layers", image: "https://assets.onecompiler.app/42rxknjmk/42zqumkdw/Oreo-Mudpie%20Parfait.png" },
+            { name: "Purple Dream Parfait", category: "Parfait", price: 99, quantity: 20, minStock: 5, maxStock: 50, description: "Purple dream parfait with mixed berries", image: "https://assets.onecompiler.app/42rxknjmk/42zqumkdw/Purple-Dream%20Parfait.png" },
+            
+            // Milkshake
+            { name: "Hot Fudge Milkshake", category: "Milkshake", price: 75, quantity: 20, minStock: 10, maxStock: 60, description: "Rich chocolate milkshake with hot fudge topping", image: "https://assets.onecompiler.app/42zqvdqhy/42zqvhhnr/hot-fudge-milkshake.png" },
+            { name: "Caramel Chocolate Milkshake", category: "Milkshake", price: 75, quantity: 20, minStock: 10, maxStock: 60, description: "Chocolate milkshake with caramel swirl", image: "https://assets.onecompiler.app/42zqvdqhy/42zqvhhnr/caramel-moolatte-milkshake.png" },
+            { name: "Mocha Chocolate Milkshake", category: "Milkshake", price: 75, quantity: 20, minStock: 10, maxStock: 60, description: "Mocha chocolate milkshake with coffee flavor", image: "https://assets.onecompiler.app/42zqvdqhy/42zqvg87b/mocha-moolatte-milkshake.png" },
+            { name: "Strawberry Milkshake", category: "Milkshake", price: 75, quantity: 20, minStock: 10, maxStock: 60, description: "Fresh strawberry milkshake with real fruit", image: "https://assets.onecompiler.app/42zqvdqhy/42zqvdsvt/strawberry-milkshake.png" }
+        ];
+        
+        function log(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+        
+        function showStatus(message, type = 'info') {
+            statusDiv.className = `status ${type}`;
+            statusDiv.innerHTML = message;
+        }
+        
+        function showLoading(show) {
+            loadingDiv.style.display = show ? 'block' : 'none';
+        }
+        
+        function showProgress(show) {
+            progressDiv.style.display = show ? 'block' : 'none';
+        }
+        
+        function updateProgress(percent) {
+            progressBar.style.width = percent + '%';
+            progressBar.setAttribute('aria-valuenow', percent);
+        }
+        
+        function setButtonsEnabled(enabled) {
+            document.getElementById('initBtn').disabled = !enabled;
+            document.getElementById('checkBtn').disabled = !enabled;
+            document.getElementById('clearBtn').disabled = !enabled;
+        }
+        
+        // Load Firebase CDN scripts (without auth)
+        function loadFirebaseScripts() {
+            return new Promise((resolve, reject) => {
+                log('Loading Firebase CDN scripts (without auth)...');
+                
+                const appScript = document.createElement('script');
+                appScript.src = 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js';
+                appScript.onload = () => {
+                    log('✅ Firebase App loaded');
+                    
+                    const firestoreScript = document.createElement('script');
+                    firestoreScript.src = 'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js';
+                    firestoreScript.onload = () => {
+                        log('✅ Firebase Firestore loaded');
+                        log('✅ Firebase ready (no auth required)');
+                        resolve();
+                    };
+                    firestoreScript.onerror = () => reject(new Error('Failed to load Firebase Firestore'));
+                    document.head.appendChild(firestoreScript);
+                };
+                appScript.onerror = () => reject(new Error('Failed to load Firebase App'));
+                document.head.appendChild(appScript);
+            });
+        }
+        
+        // Initialize Firebase (without auth)
+        async function initializeFirebase() {
+            try {
+                log('Initializing Firebase (without authentication)...');
+                
+                const firebaseConfig = {
+                    apiKey: "AIzaSyBeopoPYcU1y66sCpE2g8ud9Pe67kpMy70",
+                    authDomain: "pitchpar-535ee.firebaseapp.com",
+                    projectId: "pitchpar-535ee",
+                    storageBucket: "pitchpar-535ee.firebasestorage.app",
+                    messagingSenderId: "116894384863",
+                    appId: "1:116894384863:web:9a765cd68dae0d39015f6a",
+                    measurementId: "G-R4SNKYGXXN"
+                };
+                
+                firebaseApp = firebase.initializeApp(firebaseConfig);
+                log('✅ Firebase app initialized');
+                
+                firebaseDB = firebase.firestore();
+                log('✅ Firestore initialized');
+                
+                // Test database connection
+                log('Testing database connection...');
+                const snapshot = await firebaseDB.collection('inventory').limit(1).get();
+                log(`✅ Database connection successful! Found ${snapshot.size} items`);
+                
+                isReady = true;
+                setButtonsEnabled(true);
+                showStatus('✅ Firebase ready! You can now initialize the database.', 'success');
+                
+            } catch (error) {
+                log(`❌ Firebase initialization failed: ${error.message}`);
+                showStatus(`❌ Initialization failed: ${error.message}`, 'error');
+                setButtonsEnabled(false);
+            }
+        }
+        
+        // Initialize database with sample data
+        async function initializeDatabase() {
+            if (!isReady) {
+                alert('Firebase not ready. Please wait for initialization to complete.');
+                return;
+            }
+            
+            showLoading(true);
+            showProgress(true);
+            log('Starting database initialization...');
+            
+            try {
+                // Check if database already has data
+                const existingSnapshot = await firebaseDB.collection('inventory').limit(1).get();
+                if (!existingSnapshot.empty) {
+                    const confirm = confirm('Database already contains data. Do you want to add more items?');
+                    if (!confirm) {
+                        showLoading(false);
+                        showProgress(false);
+                        return;
+                    }
+                }
+                
+                let addedCount = 0;
+                let errorCount = 0;
+                
+                for (let i = 0; i < sampleData.length; i++) {
+                    try {
+                        const item = sampleData[i];
+                        log(`Adding ${item.name}...`);
+                        
+                        await firebaseDB.collection('inventory').add({
+                            ...item,
+                            lastUpdated: new Date()
+                        });
+                        
+                        addedCount++;
+                        updateProgress(Math.round((i + 1) / sampleData.length * 100));
+                        
+                        // Small delay to avoid rate limiting
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                        
+                    } catch (error) {
+                        log(`❌ Error adding ${sampleData[i].name}: ${error.message}`);
+                        errorCount++;
+                    }
+                }
+                
+                log(`✅ Database initialization completed! Added ${addedCount} items, ${errorCount} errors`);
+                showStatus(`✅ Successfully added ${addedCount} items to database!${errorCount > 0 ? ` (${errorCount} errors)` : ''}`, 'success');
+                
+            } catch (error) {
+                log(`❌ Database initialization failed: ${error.message}`);
+                showStatus(`❌ Initialization failed: ${error.message}`, 'error');
+            } finally {
+                showLoading(false);
+                showProgress(false);
+            }
+        }
+        
+        // Check database status
+        async function checkDatabase() {
+            if (!isReady) {
+                alert('Firebase not ready.');
+                return;
+            }
+            
+            showLoading(true);
+            log('Checking database...');
+            
+            try {
+                const snapshot = await firebaseDB.collection('inventory').get();
+                const totalItems = snapshot.size;
+                
+                if (totalItems === 0) {
+                    showStatus('📊 Database is empty. Click "Initialize Database" to add sample data.', 'warning');
+                    log('Database is empty');
+                } else {
+                    let totalStock = 0;
+                    let lowStockItems = 0;
+                    let outOfStockItems = 0;
+                    const categories = {};
+                    
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        const stock = data.quantity || 0;
+                        totalStock += stock;
+                        
+                        if (stock === 0) {
+                            outOfStockItems++;
+                        } else if (stock <= (data.minStock || 0)) {
+                            lowStockItems++;
+                        }
+                        
+                        if (!categories[data.category]) {
+                            categories[data.category] = 0;
+                        }
+                        categories[data.category]++;
+                    });
+                    
+                    const averageStock = totalItems > 0 ? Math.round(totalStock / totalItems) : 0;
+                    
+                    showStatus(`
+                        📊 Database Status:<br>
+                        Total Items: ${totalItems}<br>
+                        Total Stock: ${totalStock}<br>
+                        Average Stock: ${averageStock}<br>
+                        Low Stock Items: ${lowStockItems}<br>
+                        Out of Stock Items: ${outOfStockItems}<br>
+                        Categories: ${Object.keys(categories).join(', ')}
+                    `, 'info');
+                    
+                    log(`Database check complete: ${totalItems} items found`);
+                }
+                
+            } catch (error) {
+                log(`❌ Database check failed: ${error.message}`);
+                showStatus(`❌ Check failed: ${error.message}`, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+        
+        // Clear all data
+        async function clearDatabase() {
+            if (!isReady) {
+                alert('Firebase not ready.');
+                return;
+            }
+            
+            const confirm = confirm('Are you sure you want to clear all data? This action cannot be undone.');
+            if (!confirm) return;
+            
+            showLoading(true);
+            log('Clearing database...');
+            
+            try {
+                const snapshot = await firebaseDB.collection('inventory').get();
+                let deletedCount = 0;
+                let errorCount = 0;
+                
+                for (const doc of snapshot.docs) {
+                    try {
+                        await doc.ref.delete();
+                        deletedCount++;
+                        log(`Deleted ${doc.data().name}`);
+                    } catch (error) {
+                        log(`❌ Error deleting ${doc.data().name}: ${error.message}`);
+                        errorCount++;
+                    }
+                }
+                
+                log(`✅ Database cleared! Deleted ${deletedCount} items, ${errorCount} errors`);
+                showStatus(`✅ Successfully cleared ${deletedCount} items!${errorCount > 0 ? ` (${errorCount} errors)` : ''}`, 'success');
+                
+            } catch (error) {
+                log(`❌ Database clear failed: ${error.message}`);
+                showStatus(`❌ Clear failed: ${error.message}`, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+        
+        // Initialize everything when page loads
+        window.addEventListener('load', async () => {
+            try {
+                await loadFirebaseScripts();
+                await initializeFirebase();
+            } catch (error) {
+                log(`❌ Failed to initialize: ${error.message}`);
+                showStatus(`❌ Failed to initialize: ${error.message}`, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

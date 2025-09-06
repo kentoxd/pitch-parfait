@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Parfait - Bootstrap Demo</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <style>
+        body {
+            background: linear-gradient(to right, #C8A8E9, #F6BCBA);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .demo-section {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border-left: 5px solid #ba1b59;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: #ba1b59;
+            margin-bottom: 1rem;
+        }
+        
+        .demo-title {
+            color: #ba1b59;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .btn-demo {
+            background-color: #ba1b59;
+            border-color: #ba1b59;
+            color: white;
+            border-radius: 10px;
+            padding: 0.75rem 2rem;
+            margin: 0.5rem;
+        }
+        
+        .btn-demo:hover {
+            background-color: #9c5479;
+            border-color: #9c5479;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="demo-section">
+            <h1 class="demo-title">
+                <i class="bi bi-star-fill"></i> Bootstrap Website Demo
+            </h1>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card text-center">
+                        <i class="bi bi-phone feature-icon"></i>
+                        <h4>Responsive Design</h4>
+                        <p>Fully responsive layout that adapts to all screen sizes from mobile to desktop.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card text-center">
+                        <i class="bi bi-palette feature-icon"></i>
+                        <h4>Modern UI</h4>
+                        <p>Beautiful Bootstrap components with custom styling and smooth animations.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card text-center">
+                        <i class="bi bi-lightning feature-icon"></i>
+                        <h4>Fast & Lightweight</h4>
+                        <p>Optimized performance with Bootstrap CDN and efficient code structure.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card text-center">
+                        <i class="bi bi-shield-check feature-icon"></i>
+                        <h4>Accessible</h4>
+                        <p>Built with accessibility in mind, following web standards and best practices.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card text-center">
+                        <i class="bi bi-gear feature-icon"></i>
+                        <h4>Interactive</h4>
+                        <p>Rich interactive features including modals, carousels, and dynamic content.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card text-center">
+                        <i class="bi bi-heart feature-icon"></i>
+                        <h4>Brand Consistent</h4>
+                        <p>Maintains original brand identity while adding modern functionality.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <h3 style="color: #ba1b59; margin-bottom: 2rem;">Explore the Bootstrap Website</h3>
+                <a href="index.html" class="btn btn-demo btn-lg">
+                    <i class="bi bi-house"></i> Home Page
+                </a>
+                <a href="menu.html" class="btn btn-demo btn-lg">
+                    <i class="bi bi-menu-button-wide"></i> Menu
+                </a>
+                <a href="about.html" class="btn btn-demo btn-lg">
+                    <i class="bi bi-info-circle"></i> About
+                </a>
+                <a href="cart.html" class="btn btn-demo btn-lg">
+                    <i class="bi bi-cart3"></i> Cart
+                </a>
+                <a href="faqs.html" class="btn btn-demo btn-lg">
+                    <i class="bi bi-question-circle"></i> FAQs
+                </a>
+                <a href="directory.html" class="btn btn-demo btn-lg">
+                    <i class="bi bi-geo-alt"></i> Directory
+                </a>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading">
+                            <i class="bi bi-info-circle"></i> What's New in the Bootstrap Version?
+                        </h4>
+                        <ul class="mb-0">
+                            <li><strong>Mobile-First Design:</strong> Optimized for mobile devices with responsive navigation</li>
+                            <li><strong>Bootstrap Components:</strong> Modern cards, buttons, forms, and interactive elements</li>
+                            <li><strong>Enhanced UX:</strong> Smooth animations, hover effects, and better user interactions</li>
+                            <li><strong>Improved Accessibility:</strong> Better contrast, keyboard navigation, and screen reader support</li>
+                            <li><strong>Modern JavaScript:</strong> Enhanced cart functionality and form validation</li>
+                            <li><strong>Consistent Styling:</strong> Unified design system across all pages</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

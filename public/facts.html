@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Parfait - Nutrition Facts</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Custom Fonts -->
+    <style>
+        @font-face {
+            font-family: sweetaffogato;
+            src: url("fonts/sweetaffogato.ttf");
+        }
+
+        @font-face {
+            font-family: sundaebite;
+            src: url("fonts/sundaebite.otf");
+        }
+
+        @font-face {
+            font-family: parfait;
+            src: url("fonts/parfait.ttf");
+        }
+
+        @font-face {
+            font-family: bakeryroast;
+            src: url("fonts/bakeryroast.ttf");
+        }
+
+        @font-face {
+            font-family: avocadodiet;
+            src: url("fonts/avocadodiet.ttf");
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(to right, #C8A8E9, #F6BCBA);
+        }
+
+        .navbar-brand {
+            font-family: bakeryroast;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            font-family: bakeryroast;
+            font-size: 1.2rem;
+            color: #ba1b59 !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #9c5479 !important;
+        }
+
+        .facts-section {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-family: avocadodiet;
+            color: #ba1b59;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .table {
+            margin-bottom: 0;
+            background-color: white;
+        }
+
+        .table thead th {
+            background-color: #ba1b59;
+            color: white;
+            border: none;
+            font-weight: bold;
+            text-align: center;
+            padding: 1rem 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .table tbody td {
+            border: 1px solid #dee2e6;
+            padding: 0.75rem 0.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .legend {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #ba1b59;
+        }
+
+        .legend h4 {
+            color: #ba1b59;
+            font-family: avocadodiet;
+            margin-bottom: 1rem;
+        }
+
+        .legend p {
+            color: #734f96;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer {
+            background-color: #ffcae9;
+            color: #ba1b59;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #ba1b59;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #ba1b59;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            background-color: #9c5479;
+            transform: translateY(-2px);
+        }
+
+        .search-container {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-input {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #ba1b59;
+            box-shadow: 0 0 0 0.2rem rgba(186, 27, 89, 0.25);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffcae9;">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://assets.onecompiler.app/42rxknjmk/42xz8547e/Pitch%20Parfait%20Logo.png" 
+                     height="60" width="80" alt="Pitch Parfait Logo">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="menu.html">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="directory.html">Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="faqs.html">FAQs</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">
+                            <i class="bi bi-cart3" style="font-size: 1.5rem;"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">
+                            <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Nutrition Facts Content -->
+    <div class="container">
+        <div class="facts-section">
+            <h2 class="section-title">Nutrition Facts for Swirls® Treats</h2>
+            
+            <!-- Search Container -->
+            <div class="search-container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <input type="text" class="form-control search-input" id="searchInput" 
+                               placeholder="Search for specific items...">
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <button class="btn btn-outline-secondary" onclick="clearSearch()">
+                            <i class="bi bi-x-circle"></i> Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Table Container -->
+            <div class="table-container">
+                <table class="table table-striped" id="nutritionTable">
+                    <thead>
+                        <tr>
+                            <th>Menu Item</th>
+                            <th>Calories</th>
+                            <th>Total Fat</th>
+                            <th>Saturated Fat</th>
+                            <th>Trans Fat</th>
+                            <th>Cholesterol</th>
+                            <th>Sodium</th>
+                            <th>Carbohydrates</th>
+                            <th>Fiber</th>
+                            <th>Sugars</th>
+                            <th>Protein</th>
+                            <th>Allergens</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Special Swirls -->
+                        <tr>
+                            <td>Chocolate Chip Cookie Dough Swirls® - Small</td>
+                            <td>710</td>
+                            <td>28g</td>
+                            <td>16g</td>
+                            <td>0.5g</td>
+                            <td>45mg</td>
+                            <td>380mg</td>
+                            <td>104g</td>
+                            <td>1g</td>
+                            <td>76g</td>
+                            <td>12g</td>
+                            <td>M, S, (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Chocolate Chip Cookie Dough Swirls® - Medium</td>
+                            <td>1030</td>
+                            <td>40g</td>
+                            <td>24g</td>
+                            <td>1g</td>
+                            <td>60mg</td>
+                            <td>550mg</td>
+                            <td>151g</td>
+                            <td>2g</td>
+                            <td>110g</td>
+                            <td>17g</td>
+                            <td>M, S, (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Chocolate Chip Cookie Dough Swirls® - Large</td>
+                            <td>1340</td>
+                            <td>53g</td>
+                            <td>32g</td>
+                            <td>1g</td>
+                            <td>75mg</td>
+                            <td>740mg</td>
+                            <td>195g</td>
+                            <td>3g</td>
+                            <td>143g</td>
+                            <td>22g</td>
+                            <td>M, S, (W)</td>
+                        </tr>
+                        <tr>
+                            <td>French Silk Pie Swirls® - Small</td>
+                            <td>730</td>
+                            <td>33g</td>
+                            <td>20g</td>
+                            <td>1g</td>
+                            <td>50mg</td>
+                            <td>310mg</td>
+                            <td>98g</td>
+                            <td>2g</td>
+                            <td>76g</td>
+                            <td>14g</td>
+                            <td>M, S, (E), (W)</td>
+                        </tr>
+                        <tr>
+                            <td>French Silk Pie Swirls® - Medium</td>
+                            <td>940</td>
+                            <td>42g</td>
+                            <td>25g</td>
+                            <td>1.5g</td>
+                            <td>65mg</td>
+                            <td>400mg</td>
+                            <td>128g</td>
+                            <td>3g</td>
+                            <td>99g</td>
+                            <td>19g</td>
+                            <td>M, S, (E), (W)</td>
+                        </tr>
+                        <tr>
+                            <td>French Silk Pie Swirls® - Large</td>
+                            <td>1290</td>
+                            <td>58g</td>
+                            <td>33g</td>
+                            <td>1.5g</td>
+                            <td>85mg</td>
+                            <td>560mg</td>
+                            <td>175g</td>
+                            <td>5g</td>
+                            <td>134g</td>
+                            <td>25g</td>
+                            <td>M, S, (E), (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Berry Choco Swirls® - Small</td>
+                            <td>660</td>
+                            <td>24g</td>
+                            <td>12g</td>
+                            <td>0.5g</td>
+                            <td>40mg</td>
+                            <td>310mg</td>
+                            <td>102g</td>
+                            <td>1g</td>
+                            <td>79g</td>
+                            <td>12g</td>
+                            <td>M, S, (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Berry Choco Swirls® - Medium</td>
+                            <td>860</td>
+                            <td>31g</td>
+                            <td>15g</td>
+                            <td>1g</td>
+                            <td>50mg</td>
+                            <td>410mg</td>
+                            <td>133g</td>
+                            <td>1g</td>
+                            <td>102g</td>
+                            <td>14g</td>
+                            <td>M, S, (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Berry Choco Swirls® - Large</td>
+                            <td>1230</td>
+                            <td>44g</td>
+                            <td>21g</td>
+                            <td>1g</td>
+                            <td>75mg</td>
+                            <td>580mg</td>
+                            <td>190g</td>
+                            <td>2g</td>
+                            <td>147g</td>
+                            <td>21g</td>
+                            <td>M, S, (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Turtle Pecan Cluster Swirls® - Small</td>
+                            <td>670</td>
+                            <td>31g</td>
+                            <td>16g</td>
+                            <td>0.5g</td>
+                            <td>50mg</td>
+                            <td>270mg</td>
+                            <td>86g</td>
+                            <td>2g</td>
+                            <td>69g</td>
+                            <td>13g</td>
+                            <td>M, S, (T)</td>
+                        </tr>
+                        <tr>
+                            <td>Turtle Pecan Cluster Swirls® - Medium</td>
+                            <td>900</td>
+                            <td>48g</td>
+                            <td>26g</td>
+                            <td>1g</td>
+                            <td>60mg</td>
+                            <td>340mg</td>
+                            <td>105g</td>
+                            <td>3g</td>
+                            <td>85g</td>
+                            <td>16g</td>
+                            <td>M, S, (T)</td>
+                        </tr>
+                        <tr>
+                            <td>Turtle Pecan Cluster Swirls® - Large</td>
+                            <td>1310</td>
+                            <td>68g</td>
+                            <td>38g</td>
+                            <td>1g</td>
+                            <td>80mg</td>
+                            <td>500mg</td>
+                            <td>158g</td>
+                            <td>4g</td>
+                            <td>126g</td>
+                            <td>23g</td>
+                            <td>M, S, (T)</td>
+                        </tr>
+                        
+                        <!-- Classic Swirls -->
+                        <tr>
+                            <td>Chocolate Extreme Swirls® - Small</td>
+                            <td>620</td>
+                            <td>27g</td>
+                            <td>15g</td>
+                            <td>0.5g</td>
+                            <td>55mg</td>
+                            <td>330mg</td>
+                            <td>86g</td>
+                            <td>3g</td>
+                            <td>69g</td>
+                            <td>13g</td>
+                            <td>M, S, (E), (T), (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Chocolate Extreme Swirls® - Medium</td>
+                            <td>800</td>
+                            <td>35g</td>
+                            <td>20g</td>
+                            <td>1g</td>
+                            <td>75mg</td>
+                            <td>430mg</td>
+                            <td>112g</td>
+                            <td>4g</td>
+                            <td>89g</td>
+                            <td>16g</td>
+                            <td>M, S, (E), (T), (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Chocolate Extreme Swirls® - Large</td>
+                            <td>1120</td>
+                            <td>50g</td>
+                            <td>28g</td>
+                            <td>1g</td>
+                            <td>100mg</td>
+                            <td>600mg</td>
+                            <td>155g</td>
+                            <td>6g</td>
+                            <td>123g</td>
+                            <td>22g</td>
+                            <td>M, S, (E), (T), (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Choco Chip Swirls® - Small</td>
+                            <td>710</td>
+                            <td>28g</td>
+                            <td>16g</td>
+                            <td>0.5g</td>
+                            <td>45mg</td>
+                            <td>380mg</td>
+                            <td>104g</td>
+                            <td>1g</td>
+                            <td>76g</td>
+                            <td>12g</td>
+                            <td>M, S, (T)</td>
+                        </tr>
+                        <tr>
+                            <td>Choco Chip Swirls® - Medium</td>
+                            <td>1030</td>
+                            <td>40g</td>
+                            <td>24g</td>
+                            <td>1g</td>
+                            <td>60mg</td>
+                            <td>550mg</td>
+                            <td>151g</td>
+                            <td>2g</td>
+                            <td>110g</td>
+                            <td>17g</td>
+                            <td>M, S, (T)</td>
+                        </tr>
+                        <tr>
+                            <td>Choco Chip Swirls® - Large</td>
+                            <td>1340</td>
+                            <td>53g</td>
+                            <td>32g</td>
+                            <td>1g</td>
+                            <td>75mg</td>
+                            <td>740mg</td>
+                            <td>195g</td>
+                            <td>3g</td>
+                            <td>143g</td>
+                            <td>22g</td>
+                            <td>M, S, (T)</td>
+                        </tr>
+                        <tr>
+                            <td>Double Dutch Swirls® - Small</td>
+                            <td>600</td>
+                            <td>22g</td>
+                            <td>12g</td>
+                            <td>1g</td>
+                            <td>50mg</td>
+                            <td>280mg</td>
+                            <td>89g</td>
+                            <td>1g</td>
+                            <td>70g</td>
+                            <td>13g</td>
+                            <td>M, S, (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Double Dutch Swirls® - Medium</td>
+                            <td>820</td>
+                            <td>30g</td>
+                            <td>16g</td>
+                            <td>1g</td>
+                            <td>65mg</td>
+                            <td>390mg</td>
+                            <td>121g</td>
+                            <td>1g</td>
+                            <td>94g</td>
+                            <td>17g</td>
+                            <td>M, S, (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Double Dutch Swirls® - Large</td>
+                            <td>1050</td>
+                            <td>39g</td>
+                            <td>20g</td>
+                            <td>1.5g</td>
+                            <td>80mg</td>
+                            <td>500mg</td>
+                            <td>156g</td>
+                            <td>1g</td>
+                            <td>121g</td>
+                            <td>22g</td>
+                            <td>M, S, (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Mango Cheesecake Swirls® - Small</td>
+                            <td>500</td>
+                            <td>20g</td>
+                            <td>12g</td>
+                            <td>0.2g</td>
+                            <td>75mg</td>
+                            <td>340mg</td>
+                            <td>76g</td>
+                            <td>1g</td>
+                            <td>62g</td>
+                            <td>14g</td>
+                            <td>M, S, (E), (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Mango Cheesecake Swirls® - Medium</td>
+                            <td>670</td>
+                            <td>26g</td>
+                            <td>16g</td>
+                            <td>0.4g</td>
+                            <td>100mg</td>
+                            <td>450mg</td>
+                            <td>101g</td>
+                            <td>1g</td>
+                            <td>83g</td>
+                            <td>17g</td>
+                            <td>M, S, (E), (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Mango Cheesecake Swirls® - Large</td>
+                            <td>890</td>
+                            <td>35g</td>
+                            <td>21g</td>
+                            <td>0.5g</td>
+                            <td>135mg</td>
+                            <td>590mg</td>
+                            <td>136g</td>
+                            <td>2g</td>
+                            <td>111g</td>
+                            <td>23g</td>
+                            <td>M, S, (E), (W)</td>
+                        </tr>
+                        
+                        <!-- Royal Swirls -->
+                        <tr>
+                            <td>Royal New York Cheesecake Swirls® - Small</td>
+                            <td>750</td>
+                            <td>32g</td>
+                            <td>15g</td>
+                            <td>1g</td>
+                            <td>75mg</td>
+                            <td>380mg</td>
+                            <td>102g</td>
+                            <td>2g</td>
+                            <td>82g</td>
+                            <td>14g</td>
+                            <td>M, P, S, (E), (T), (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Royal New York Cheesecake Swirls® - Medium</td>
+                            <td>1040</td>
+                            <td>46g</td>
+                            <td>21g</td>
+                            <td>1.5g</td>
+                            <td>105mg</td>
+                            <td>530mg</td>
+                            <td>140g</td>
+                            <td>2g</td>
+                            <td>112g</td>
+                            <td>19g</td>
+                            <td>M, P, S, (E), (T), (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Royal New York Cheesecake Swirls® - Large</td>
+                            <td>1350</td>
+                            <td>61g</td>
+                            <td>28g</td>
+                            <td>2g</td>
+                            <td>135mg</td>
+                            <td>700mg</td>
+                            <td>177g</td>
+                            <td>3g</td>
+                            <td>141g</td>
+                            <td>25g</td>
+                            <td>M, P, S, (E), (T), (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Royal Oreo® Swirls® - Small</td>
+                            <td>860</td>
+                            <td>29g</td>
+                            <td>17g</td>
+                            <td>0.1g</td>
+                            <td>55mg</td>
+                            <td>490mg</td>
+                            <td>117g</td>
+                            <td>1g</td>
+                            <td>88g</td>
+                            <td>16g</td>
+                            <td>M, S, (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Royal Oreo® Swirls® - Medium</td>
+                            <td>1210</td>
+                            <td>41g</td>
+                            <td>23g</td>
+                            <td>0.1g</td>
+                            <td>70mg</td>
+                            <td>680mg</td>
+                            <td>162g</td>
+                            <td>2g</td>
+                            <td>122g</td>
+                            <td>22g</td>
+                            <td>M, S, (W)</td>
+                        </tr>
+                        <tr>
+                            <td>Royal Oreo® Swirls® - Large</td>
+                            <td>1530</td>
+                            <td>51g</td>
+                            <td>28g</td>
+                            <td>0.2g</td>
+                            <td>90mg</td>
+                            <td>860mg</td>
+                            <td>203g</td>
+                            <td>3g</td>
+                            <td>151g</td>
+                            <td>27g</td>
+                            <td>M, S, (W)</td>
+                        </tr>
+                        
+                        <!-- Milkshakes -->
+                        <tr>
+                            <td>Hot Fudge Milkshake® - Small</td>
+                            <td>430</td>
+                            <td>15g</td>
+                            <td>11g</td>
+                            <td>0.5g</td>
+                            <td>35mg</td>
+                            <td>190mg</td>
+                            <td>66g</td>
+                            <td>1g</td>
+                            <td>52g</td>
+                            <td>9g</td>
+                            <td>M, S</td>
+                        </tr>
+                        <tr>
+                            <td>Hot Fudge Milkshake® - Medium</td>
+                            <td>750</td>
+                            <td>30g</td>
+                            <td>23g</td>
+                            <td>1.5g</td>
+                            <td>60mg</td>
+                            <td>330mg</td>
+                            <td>105g</td>
+                            <td>1g</td>
+                            <td>85g</td>
+                            <td>17g</td>
+                            <td>M, S</td>
+                        </tr>
+                        <tr>
+                            <td>Hot Fudge Milkshake® - Large</td>
+                            <td>990</td>
+                            <td>38g</td>
+                            <td>29g</td>
+                            <td>1.5g</td>
+                            <td>75mg</td>
+                            <td>440mg</td>
+                            <td>140g</td>
+                            <td>1g</td>
+                            <td>112g</td>
+                            <td>23g</td>
+                            <td>M, S</td>
+                        </tr>
+                        <tr>
+                            <td>Strawberry Milkshake® - Small</td>
+                            <td>490</td>
+                            <td>19g</td>
+                            <td>14g</td>
+                            <td>1g</td>
+                            <td>45mg</td>
+                            <td>200mg</td>
+                            <td>68g</td>
+                            <td>0g</td>
+                            <td>59g</td>
+                            <td>13g</td>
+                            <td>M, S</td>
+                        </tr>
+                        <tr>
+                            <td>Strawberry Milkshake® - Medium</td>
+                            <td>630</td>
+                            <td>23g</td>
+                            <td>16g</td>
+                            <td>1g</td>
+                            <td>60mg</td>
+                            <td>260mg</td>
+                            <td>92g</td>
+                            <td>1g</td>
+                            <td>80g</td>
+                            <td>16g</td>
+                            <td>M, S</td>
+                        </tr>
+                        <tr>
+                            <td>Strawberry Milkshake® - Large</td>
+                            <td>800</td>
+                            <td>27g</td>
+                            <td>19g</td>
+                            <td>1.5g</td>
+                            <td>75mg</td>
+                            <td>340mg</td>
+                            <td>120g</td>
+                            <td>1g</td>
+                            <td>105g</td>
+                            <td>21g</td>
+                            <td>M, S</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Legend -->
+            <div class="legend">
+                <h4><i class="bi bi-info-circle"></i> Allergen Legend</h4>
+                <p><strong>M</strong> = Milk</p>
+                <p><strong>P</strong> = Peanuts</p>
+                <p><strong>S</strong> = Soy</p>
+                <p><strong>(E)</strong> = Eggs</p>
+                <p><strong>(T)</strong> = Tree Nuts</p>
+                <p><strong>(W)</strong> = Wheat</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" onclick="scrollToTop()">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-2">PRIVACY STATEMENT &nbsp;&nbsp;|&nbsp;&nbsp;TERMS & CONDITIONS &nbsp;&nbsp;|&nbsp;&nbsp;ACCESSIBILITY STATEMENT &nbsp;&nbsp;|&nbsp;&nbsp;SITEMAP</p>
+                    <p class="mb-2">&copy; The PP, Pitch Parfait, Ice cream shaped logo, PP logo, Classic Swirls, Special Swirls, Royal Swirls, and other related trademarks are owned by Pitch Parfait Enterprises © 2024. Products and Menus may vary by location; not all products listed are available in all locations.</p>
+                    <p>For more information, visit our <a href="about.html">About Us</a> page.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const tableRows = document.querySelectorAll('#nutritionTable tbody tr');
+            
+            tableRows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            const tableRows = document.querySelectorAll('#nutritionTable tbody tr');
+            tableRows.forEach(row => {
+                row.style.display = '';
+            });
+        }
+
+        // Back to top functionality
+        window.onscroll = function() {
+            const backToTopButton = document.getElementById('backToTop');
+            if (document.documentElement.scrollTop > 200 || document.body.scrollTop > 200) {
+                backToTopButton.style.display = "flex";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ 
+                top: 0, 
+                behavior: 'smooth' 
+            });
+        }
+    </script>
+</body>
+</html>

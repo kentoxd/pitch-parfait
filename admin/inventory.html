@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Parfait - Inventory Management</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom Fonts -->
+    <style>
+        @font-face {
+            font-family: sweetaffogato;
+            src: url("fonts/sweetaffogato.ttf");
+        }
+
+        @font-face {
+            font-family: sundaebite;
+            src: url("fonts/sundaebite.otf");
+        }
+
+        @font-face {
+            font-family: parfait;
+            src: url("fonts/parfait.ttf");
+        }
+
+        @font-face {
+            font-family: bakeryroast;
+            src: url("fonts/bakeryroast.ttf");
+        }
+
+        @font-face {
+            font-family: avocadodiet;
+            src: url("fonts/avocadodiet.ttf");
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(to right, #C8A8E9, #F6BCBA);
+        }
+
+        .navbar-brand {
+            font-family: bakeryroast;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            font-family: bakeryroast;
+            font-size: 1.2rem;
+            color: #ba1b59 !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #9c5479 !important;
+        }
+
+        .inventory-section {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-family: avocadodiet;
+            color: #ba1b59;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .inventory-item {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+            transition: transform 0.3s ease;
+        }
+
+        .inventory-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .stock-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: bold;
+        }
+
+        .stock-high {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .stock-medium {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .stock-low {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .stock-out {
+            background-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        .btn-primary {
+            background-color: #ba1b59;
+            border-color: #ba1b59;
+        }
+
+        .btn-primary:hover {
+            background-color: #9c5479;
+            border-color: #9c5479;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #212529;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .search-bar {
+            margin-bottom: 2rem;
+        }
+
+        .filter-buttons {
+            margin-bottom: 2rem;
+        }
+
+        .stats-cards {
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #ba1b59, #9c5479);
+            color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-content {
+            border-radius: 15px;
+        }
+
+        .modal-header {
+            background-color: #ba1b59;
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .footer {
+            background-color: #ffcae9;
+            color: #ba1b59;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #ba1b59;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #ba1b59;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffcae9;">
+        <div class="container">
+            <a class="navbar-brand" href="../public/index.html">
+                <img src="https://assets.onecompiler.app/42rxknjmk/42xz8547e/Pitch%20Parfait%20Logo.png" 
+                     height="60" width="80" alt="Pitch Parfait Logo">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../public/index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../public/about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../public/menu.html">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../public/directory.html">Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../public/faqs.html">FAQs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="inventory.html">Inventory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin-dashboard.html">Dashboard</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../public/cart.html">
+                            <i class="bi bi-cart3" style="font-size: 1.5rem;"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../public/profile.html">
+                            <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Inventory Management Content -->
+    <div class="container">
+        <div class="inventory-section">
+            <h2 class="section-title">Inventory Management</h2>
+            
+            <!-- Statistics Cards -->
+            <div class="row stats-cards">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-items">0</div>
+                        <div>Total Items</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number" id="low-stock-items">0</div>
+                        <div>Low Stock</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number" id="out-of-stock-items">0</div>
+                        <div>Out of Stock</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-value">₱0</div>
+                        <div>Total Value</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search and Filter Controls -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="search-bar">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                            <input type="text" class="form-control" id="search-input" placeholder="Search inventory items...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="filter-buttons">
+                        <button class="btn btn-outline-primary me-2" onclick="filterItems('all')">All</button>
+                        <button class="btn btn-outline-warning me-2" onclick="filterItems('low')">Low Stock</button>
+                        <button class="btn btn-outline-danger me-2" onclick="filterItems('out')">Out of Stock</button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
+                            <i class="bi bi-plus"></i> Add Item
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Message -->
+            <div id="error-message" class="error-message" style="display: none;"></div>
+
+            <!-- Loading Indicator -->
+            <div id="loading" class="loading">
+                <i class="bi bi-hourglass-split"></i> Loading inventory...
+            </div>
+
+            <!-- Inventory Items Container -->
+            <div id="inventory-container">
+                <!-- Inventory items will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Item Modal -->
+    <div class="modal fade" id="addItemModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Add New Item</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="itemForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="itemName" class="form-label">Item Name *</label>
+                                    <input type="text" class="form-control" id="itemName" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="itemCategory" class="form-label">Category *</label>
+                                    <select class="form-select" id="itemCategory" required>
+                                        <option value="">Select Category</option>
+                                        <option value="Classic Swirls">Classic Swirls</option>
+                                        <option value="Special Swirls">Special Swirls</option>
+                                        <option value="Royal Swirls">Royal Swirls</option>
+                                        <option value="Cakes">Cakes</option>
+                                        <option value="Parfait">Parfait</option>
+                                        <option value="Milkshake">Milkshake</option>
+                                        <option value="Ingredients">Ingredients</option>
+                                        <option value="Supplies">Supplies</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="itemPrice" class="form-label">Price (₱) *</label>
+                                    <input type="number" class="form-control" id="itemPrice" step="0.01" min="0" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="itemQuantity" class="form-label">Current Stock *</label>
+                                    <input type="number" class="form-control" id="itemQuantity" min="0" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="itemMinStock" class="form-label">Minimum Stock Level *</label>
+                                    <input type="number" class="form-control" id="itemMinStock" min="0" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="itemMaxStock" class="form-label">Maximum Stock Level</label>
+                                    <input type="number" class="form-control" id="itemMaxStock" min="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="itemDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="itemDescription" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="itemImage" class="form-label">Image URL</label>
+                            <input type="url" class="form-control" id="itemImage" placeholder="https://example.com/image.jpg">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveItem()">Save Item</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-2">PRIVACY STATEMENT &nbsp;&nbsp;|&nbsp;&nbsp;TERMS & CONDITIONS &nbsp;&nbsp;|&nbsp;&nbsp;ACCESSIBILITY STATEMENT &nbsp;&nbsp;|&nbsp;&nbsp;SITEMAP</p>
+                    <p class="mb-2">&copy; The PP, Pitch Parfait, Ice cream shaped logo, PP logo, Classic Swirls, Special Swirls, Royal Swirls, and other related trademarks are owned by Pitch Parfait Enterprises © 2024. Products and Menus may vary by location; not all products listed are available in all locations.</p>
+                    <p>For more information, visit our <a href="about.html">About Us</a> page.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Admin Authentication -->
+    <script src="admin-auth.js"></script>
+    
+    <!-- Firebase Configuration -->
+    <script type="module" src="../database/firebase-config.js"></script>
+    
+    <!-- Inventory Alerts -->
+    <script type="module" src="../database/inventory-alerts.js"></script>
+    
+    <!-- Database Setup -->
+    <script type="module" src="../database/database-setup.js"></script>
+    
+    <!-- Inventory Management Script -->
+    <script type="module">
+        import { firebase } from '../database/firebase-config.js';
+
+        let currentFilter = 'all';
+        let allItems = [];
+        let filteredItems = [];
+
+        // Initialize the inventory system
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeInventory();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Search functionality
+            document.getElementById('search-input').addEventListener('input', function(e) {
+                filterItems(currentFilter);
+            });
+
+            // Modal reset when closed
+            document.getElementById('addItemModal').addEventListener('hidden.bs.modal', function() {
+                resetForm();
+            });
+        }
+
+        async function initializeInventory() {
+            try {
+                showLoading(true);
+                await loadInventory();
+                updateStatistics();
+                displayItems();
+            } catch (error) {
+                showError('Failed to load inventory: ' + error.message);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function loadInventory() {
+            try {
+                const inventoryRef = firebase.collection(firebase.db, 'inventory');
+                const snapshot = await firebase.getDocs(inventoryRef);
+                
+                allItems = [];
+                snapshot.forEach((doc) => {
+                    allItems.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+                
+                // Sort by name
+                allItems.sort((a, b) => a.name.localeCompare(b.name));
+                filteredItems = [...allItems];
+            } catch (error) {
+                console.error('Error loading inventory:', error);
+                throw error;
+            }
+        }
+
+        function displayItems() {
+            const container = document.getElementById('inventory-container');
+            
+            if (filteredItems.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-5">
+                        <i class="bi bi-inbox" style="font-size: 3rem; color: #ba1b59; opacity: 0.5;"></i>
+                        <h4 class="mt-3" style="color: #ba1b59;">No items found</h4>
+                        <p>Try adjusting your search or filter criteria.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filteredItems.map(item => createItemCard(item)).join('');
+        }
+
+        function createItemCard(item) {
+            const stockStatus = getStockStatus(item.quantity, item.minStock);
+            const statusClass = getStockStatusClass(stockStatus);
+            const totalValue = (item.price * item.quantity).toFixed(2);
+
+            return `
+                <div class="inventory-item" data-item-id="${item.id}">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            ${item.image ? `<img src="${item.image}" class="img-fluid rounded" style="max-height: 80px; object-fit: cover;" alt="${item.name}">` : '<div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 80px;"><i class="bi bi-image text-muted"></i></div>'}
+                        </div>
+                        <div class="col-md-3">
+                            <h5 class="mb-1">${item.name}</h5>
+                            <p class="mb-1 text-muted">${item.category}</p>
+                            <p class="mb-0 text-muted">₱${item.price.toFixed(2)} each</p>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="text-center">
+                                <div class="h4 mb-1">${item.quantity}</div>
+                                <small class="text-muted">in stock</small>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="stock-status ${statusClass}">${stockStatus}</span>
+                            <div class="mt-1">
+                                <small class="text-muted">Min: ${item.minStock}</small>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="text-center">
+                                <div class="h6 mb-1">₱${totalValue}</div>
+                                <small class="text-muted">total value</small>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="btn-group-vertical" role="group">
+                                <button class="btn btn-sm btn-outline-primary" onclick="editItem('${item.id}')" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-success" onclick="updateStock('${item.id}', 1)" title="Add Stock">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-warning" onclick="updateStock('${item.id}', -1)" title="Remove Stock">
+                                    <i class="bi bi-dash"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteItem('${item.id}')" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getStockStatus(quantity, minStock) {
+            if (quantity === 0) return 'Out of Stock';
+            if (quantity <= minStock) return 'Low Stock';
+            if (quantity <= minStock * 2) return 'Medium Stock';
+            return 'High Stock';
+        }
+
+        function getStockStatusClass(status) {
+            switch (status) {
+                case 'Out of Stock': return 'stock-out';
+                case 'Low Stock': return 'stock-low';
+                case 'Medium Stock': return 'stock-medium';
+                case 'High Stock': return 'stock-high';
+                default: return 'stock-medium';
+            }
+        }
+
+        function filterItems(filter) {
+            currentFilter = filter;
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            
+            filteredItems = allItems.filter(item => {
+                const matchesFilter = filter === 'all' || 
+                    (filter === 'low' && item.quantity <= item.minStock && item.quantity > 0) ||
+                    (filter === 'out' && item.quantity === 0);
+                
+                const matchesSearch = item.name.toLowerCase().includes(searchTerm) ||
+                    item.category.toLowerCase().includes(searchTerm) ||
+                    (item.description && item.description.toLowerCase().includes(searchTerm));
+                
+                return matchesFilter && matchesSearch;
+            });
+            
+            displayItems();
+        }
+
+        function updateStatistics() {
+            const totalItems = allItems.length;
+            const lowStockItems = allItems.filter(item => item.quantity <= item.minStock && item.quantity > 0).length;
+            const outOfStockItems = allItems.filter(item => item.quantity === 0).length;
+            const totalValue = allItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            document.getElementById('total-items').textContent = totalItems;
+            document.getElementById('low-stock-items').textContent = lowStockItems;
+            document.getElementById('out-of-stock-items').textContent = outOfStockItems;
+            document.getElementById('total-value').textContent = `₱${totalValue.toFixed(2)}`;
+        }
+
+        async function saveItem() {
+            try {
+                const formData = {
+                    name: document.getElementById('itemName').value.trim(),
+                    category: document.getElementById('itemCategory').value,
+                    price: parseFloat(document.getElementById('itemPrice').value),
+                    quantity: parseInt(document.getElementById('itemQuantity').value),
+                    minStock: parseInt(document.getElementById('itemMinStock').value),
+                    maxStock: parseInt(document.getElementById('itemMaxStock').value) || null,
+                    description: document.getElementById('itemDescription').value.trim() || null,
+                    image: document.getElementById('itemImage').value.trim() || null,
+                    lastUpdated: new Date()
+                };
+
+                // Validation
+                if (!formData.name || !formData.category || formData.price < 0 || formData.quantity < 0 || formData.minStock < 0) {
+                    alert('Please fill in all required fields with valid values.');
+                    return;
+                }
+
+                const inventoryRef = firebase.collection(firebase.db, 'inventory');
+                await firebase.addDoc(inventoryRef, formData);
+
+                // Close modal and refresh
+                bootstrap.Modal.getInstance(document.getElementById('addItemModal')).hide();
+                await initializeInventory();
+                
+                alert('Item added successfully!');
+            } catch (error) {
+                console.error('Error saving item:', error);
+                alert('Failed to save item: ' + error.message);
+            }
+        }
+
+        async function editItem(itemId) {
+            const item = allItems.find(i => i.id === itemId);
+            if (!item) return;
+
+            // Populate form with item data
+            document.getElementById('itemName').value = item.name;
+            document.getElementById('itemCategory').value = item.category;
+            document.getElementById('itemPrice').value = item.price;
+            document.getElementById('itemQuantity').value = item.quantity;
+            document.getElementById('itemMinStock').value = item.minStock;
+            document.getElementById('itemMaxStock').value = item.maxStock || '';
+            document.getElementById('itemDescription').value = item.description || '';
+            document.getElementById('itemImage').value = item.image || '';
+
+            // Change modal title and add update functionality
+            document.getElementById('modalTitle').textContent = 'Edit Item';
+            document.querySelector('#addItemModal .modal-footer button:last-child').onclick = () => updateItem(itemId);
+
+            // Show modal
+            new bootstrap.Modal(document.getElementById('addItemModal')).show();
+        }
+
+        async function updateItem(itemId) {
+            try {
+                const formData = {
+                    name: document.getElementById('itemName').value.trim(),
+                    category: document.getElementById('itemCategory').value,
+                    price: parseFloat(document.getElementById('itemPrice').value),
+                    quantity: parseInt(document.getElementById('itemQuantity').value),
+                    minStock: parseInt(document.getElementById('itemMinStock').value),
+                    maxStock: parseInt(document.getElementById('itemMaxStock').value) || null,
+                    description: document.getElementById('itemDescription').value.trim() || null,
+                    image: document.getElementById('itemImage').value.trim() || null,
+                    lastUpdated: new Date()
+                };
+
+                // Validation
+                if (!formData.name || !formData.category || formData.price < 0 || formData.quantity < 0 || formData.minStock < 0) {
+                    alert('Please fill in all required fields with valid values.');
+                    return;
+                }
+
+                const itemRef = firebase.doc(firebase.db, 'inventory', itemId);
+                await firebase.updateDoc(itemRef, formData);
+
+                // Close modal and refresh
+                bootstrap.Modal.getInstance(document.getElementById('addItemModal')).hide();
+                await initializeInventory();
+                
+                alert('Item updated successfully!');
+            } catch (error) {
+                console.error('Error updating item:', error);
+                alert('Failed to update item: ' + error.message);
+            }
+        }
+
+        async function updateStock(itemId, change) {
+            try {
+                const item = allItems.find(i => i.id === itemId);
+                if (!item) return;
+
+                const newQuantity = Math.max(0, item.quantity + change);
+                
+                const itemRef = firebase.doc(firebase.db, 'inventory', itemId);
+                await firebase.updateDoc(itemRef, {
+                    quantity: newQuantity,
+                    lastUpdated: new Date()
+                });
+
+                await initializeInventory();
+            } catch (error) {
+                console.error('Error updating stock:', error);
+                alert('Failed to update stock: ' + error.message);
+            }
+        }
+
+        async function deleteItem(itemId) {
+            if (!confirm('Are you sure you want to delete this item? This action cannot be undone.')) {
+                return;
+            }
+
+            try {
+                const itemRef = firebase.doc(firebase.db, 'inventory', itemId);
+                await firebase.deleteDoc(itemRef);
+
+                await initializeInventory();
+                alert('Item deleted successfully!');
+            } catch (error) {
+                console.error('Error deleting item:', error);
+                alert('Failed to delete item: ' + error.message);
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('itemForm').reset();
+            document.getElementById('modalTitle').textContent = 'Add New Item';
+            document.querySelector('#addItemModal .modal-footer button:last-child').onclick = saveItem;
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+            document.getElementById('inventory-container').style.display = show ? 'none' : 'block';
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Make functions globally available
+        window.filterItems = filterItems;
+        window.editItem = editItem;
+        window.updateStock = updateStock;
+        window.deleteItem = deleteItem;
+        window.saveItem = saveItem;
+        window.updateItem = updateItem;
+    </script>
+</body>
+</html>

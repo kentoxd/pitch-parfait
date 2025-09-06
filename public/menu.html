@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Parfait - Menu</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Custom Fonts -->
+    <style>
+        @font-face {
+            font-family: sweetaffogato;
+            src: url("fonts/sweetaffogato.ttf");
+        }
+
+        @font-face {
+            font-family: sundaebite;
+            src: url("fonts/sundaebite.otf");
+        }
+
+        @font-face {
+            font-family: parfait;
+            src: url("fonts/parfait.ttf");
+        }
+
+        @font-face {
+            font-family: bakeryroast;
+            src: url("fonts/bakeryroast.ttf");
+        }
+
+        @font-face {
+            font-family: avocadodiet;
+            src: url("fonts/avocadodiet.ttf");
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(to right, #C8A8E9, #F6BCBA);
+        }
+
+        .navbar-brand {
+            font-family: bakeryroast;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            font-family: bakeryroast;
+            font-size: 1.2rem;
+            color: #ba1b59 !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #9c5479 !important;
+        }
+
+        .menu-section {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-family: avocadodiet;
+            color: #ba1b59;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .menu-item {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .menu-item h5 {
+            color: #ba1b59;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .price-btn {
+            background-color: #ba1b59;
+            border-color: #ba1b59;
+            color: white;
+            margin: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .price-btn:hover {
+            background-color: #9c5479;
+            border-color: #9c5479;
+            color: white;
+        }
+
+        .footer {
+            background-color: #ffcae9;
+            color: #ba1b59;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #ba1b59;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-primary {
+            background-color: #ba1b59;
+            border-color: #ba1b59;
+        }
+
+        .btn-primary:hover {
+            background-color: #9c5479;
+            border-color: #9c5479;
+        }
+
+        .stock-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 0.25rem 0.5rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .stock-high {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .stock-medium {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .stock-low {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .stock-out {
+            background-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        .menu-item {
+            position: relative;
+        }
+
+        .out-of-stock {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .out-of-stock .price-btn {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffcae9;">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://assets.onecompiler.app/42rxknjmk/42xz8547e/Pitch%20Parfait%20Logo.png" 
+                     height="60" width="80" alt="Pitch Parfait Logo">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="menu.html">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="directory.html">Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="faqs.html">FAQs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inventory.html">Inventory</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">
+                            <i class="bi bi-cart3" style="font-size: 1.5rem;"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">
+                            <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menu Content -->
+    <div class="container">
+        <!-- Classic Swirls Section -->
+        <div class="menu-section">
+            <h2 class="section-title">Classic Swirls</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42vc5shrr/42z65dqwa/with%20logo_ChocoChip-1-removebg-preview.png" alt="Choco Chip">
+                        <h5>Choco Chip</h5>
+                        <button class="btn price-btn" onclick="addToCart('Choco Chip - Small', 55)">Small - ₱55</button>
+                        <button class="btn price-btn" onclick="addToCart('Choco Chip - Medium', 75)">Medium - ₱75</button>
+                        <button class="btn price-btn" onclick="addToCart('Choco Chip - Large', 95)">Large - ₱95</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42vc5shrr/42z65dqwa/with%20logo_ChocoExtreme-removebg-preview.png" alt="Choco Extreme">
+                        <h5>Choco Extreme</h5>
+                        <button class="btn price-btn" onclick="addToCart('Choco Extreme - Small', 55)">Small - ₱55</button>
+                        <button class="btn price-btn" onclick="addToCart('Choco Extreme - Medium', 75)">Medium - ₱75</button>
+                        <button class="btn price-btn" onclick="addToCart('Choco Extreme - Large', 95)">Large - ₱95</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42vc5shrr/42z65dqwa/with%20logo_DoubleDutch-removebg-preview.png" alt="Double Dutch">
+                        <h5>Double Dutch</h5>
+                        <button class="btn price-btn" onclick="addToCart('Double Dutch - Small', 55)">Small - ₱55</button>
+                        <button class="btn price-btn" onclick="addToCart('Double Dutch - Medium', 75)">Medium - ₱75</button>
+                        <button class="btn price-btn" onclick="addToCart('Double Dutch - Large', 95)">Large - ₱95</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42vc5shrr/42z65dqwa/with%20logo_MangoCheesecake-removebg-preview.png" alt="Mango Cheesecake">
+                        <h5>Mango Cheesecake</h5>
+                        <button class="btn price-btn" onclick="addToCart('Mango Cheesecake - Small', 55)">Small - ₱55</button>
+                        <button class="btn price-btn" onclick="addToCart('Mango Cheesecake - Medium', 75)">Medium - ₱75</button>
+                        <button class="btn price-btn" onclick="addToCart('Mango Cheesecake - Large', 95)">Large - ₱95</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Special Swirls Section -->
+        <div class="menu-section">
+            <h2 class="section-title">Special Swirls</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42rxknjmk/42zmfprf9/berry-choco.png" alt="Berry Choco">
+                        <h5>Berry Choco</h5>
+                        <button class="btn price-btn" onclick="addToCart('Berry Choco - Small', 60)">Small - ₱60</button>
+                        <button class="btn price-btn" onclick="addToCart('Berry Choco - Medium', 80)">Medium - ₱80</button>
+                        <button class="btn price-btn" onclick="addToCart('Berry Choco - Large', 100)">Large - ₱100</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42rxknjmk/42zmfprf9/chocolate-chip-cookie-dough-swirls.png" alt="Choco Chip Cookie Dough">
+                        <h5>Chocolate Chip Cookie Dough</h5>
+                        <button class="btn price-btn" onclick="addToCart('Chocolate Chip Cookie Dough - Small', 60)">Small - ₱60</button>
+                        <button class="btn price-btn" onclick="addToCart('Chocolate Chip Cookie Dough - Medium', 80)">Medium - ₱80</button>
+                        <button class="btn price-btn" onclick="addToCart('Chocolate Chip Cookie Dough - Large', 100)">Large - ₱100</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42rxknjmk/42zmfprf9/french-silk-pie.png" alt="French Silk Pie">
+                        <h5>French Silk Pie</h5>
+                        <button class="btn price-btn" onclick="addToCart('French Silk Pie - Small', 60)">Small - ₱60</button>
+                        <button class="btn price-btn" onclick="addToCart('French Silk Pie - Medium', 80)">Medium - ₱80</button>
+                        <button class="btn price-btn" onclick="addToCart('French Silk Pie - Large', 100)">Large - ₱100</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42rxknjmk/42zmfprf9/Turtle-Pecan-Swirls.png" alt="Turtle Pecan">
+                        <h5>Turtle Pecan</h5>
+                        <button class="btn price-btn" onclick="addToCart('Turtle Pecan - Small', 60)">Small - ₱60</button>
+                        <button class="btn price-btn" onclick="addToCart('Turtle Pecan - Medium', 80)">Medium - ₱80</button>
+                        <button class="btn price-btn" onclick="addToCart('Turtle Pecan - Large', 100)">Large - ₱100</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Royal Swirls Section -->
+        <div class="menu-section">
+            <h2 class="section-title">Royal Swirls</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42vc5shrr/42zmby6kh/Royal-New-York-Cheesecake-Swirls.png" alt="Royal New York Cheesecake">
+                        <h5>New York Cheesecake Swirl</h5>
+                        <button class="btn price-btn" onclick="addToCart('New York Cheesecake Swirl - Small', 75)">Small - ₱75</button>
+                        <button class="btn price-btn" onclick="addToCart('New York Cheesecake Swirl - Medium', 95)">Medium - ₱95</button>
+                        <button class="btn price-btn" onclick="addToCart('New York Cheesecake Swirl - Large', 115)">Large - ₱115</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42vc5shrr/42zmby6kh/Royal-Oreo-Swirls.png" alt="Royal Oreo">
+                        <h5>Oreo Swirl</h5>
+                        <button class="btn price-btn" onclick="addToCart('Oreo Swirl - Small', 75)">Small - ₱75</button>
+                        <button class="btn price-btn" onclick="addToCart('Oreo Swirl - Medium', 95)">Medium - ₱95</button>
+                        <button class="btn price-btn" onclick="addToCart('Oreo Swirl - Large', 115)">Large - ₱115</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42vc5shrr/42zmby6kh/Royal-Reese_s-Brownie-Swirls.png" alt="Royal Reese's Brownie">
+                        <h5>Reese's Brownies Swirl</h5>
+                        <button class="btn price-btn" onclick="addToCart('Reeses Brownies Swirl - Small', 75)">Small - ₱75</button>
+                        <button class="btn price-btn" onclick="addToCart('Reeses Brownies Swirl - Medium', 95)">Medium - ₱95</button>
+                        <button class="btn price-btn" onclick="addToCart('Reeses Brownies Swirl - Large', 115)">Large - ₱115</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42vc5shrr/42zmeqcx4/Royal-Ultimate-Choco-Brownie-Swirls.png" alt="Royal Ultimate Choco Brownie">
+                        <h5>Ultimate Choco Brownie Swirl</h5>
+                        <button class="btn price-btn" onclick="addToCart('Ultimate Choco Brownie Swirl - Small', 75)">Small - ₱75</button>
+                        <button class="btn price-btn" onclick="addToCart('Ultimate Choco Brownie Swirl - Medium', 95)">Medium - ₱95</button>
+                        <button class="btn price-btn" onclick="addToCart('Ultimate Choco Brownie Swirl - Large', 115)">Large - ₱115</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cakes Section -->
+        <div class="menu-section">
+            <h2 class="section-title">Cakes</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42vc5shrr/42yyv2knc/DQ-Blizzard-Ice-Cream-Cake-Chocolate-Extreme.png" alt="Choco Extreme">
+                        <h5>Ice Cream Chocolate Cake Extreme</h5>
+                        <button class="btn price-btn" onclick="addToCart('Ice Cream Chocolate Cake Extreme - 6 Inch', 899)">6 Inch - ₱899</button>
+                        <button class="btn price-btn" onclick="addToCart('Ice Cream Chocolate Cake Extreme - 8 Inch', 1299)">8 Inch - ₱1299</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42vc5shrr/42yyv2knc/DQ-Blizzard-Ice-Cream-Cake-Chocolate-Kitkat.png" alt="Choco KitKat">
+                        <h5>Ice Cream Chocolate Cake KitKat</h5>
+                        <button class="btn price-btn" onclick="addToCart('Ice Cream Chocolate Cake KitKat - 6 Inch', 899)">6 Inch - ₱899</button>
+                        <button class="btn price-btn" onclick="addToCart('Ice Cream Chocolate Cake KitKat - 8 Inch', 1299)">8 Inch - ₱1299</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42vc5shrr/42yyv2knc/DQ-Ice-Cream-Choco-Shavings.png" alt="Choco Shavings">
+                        <h5>Ice Cream Choco Shavings</h5>
+                        <button class="btn price-btn" onclick="addToCart('Ice Cream Choco Shavings - 6 Inch', 899)">6 Inch - ₱899</button>
+                        <button class="btn price-btn" onclick="addToCart('Ice Cream Choco Shavings - 8 Inch', 1299)">8 Inch - ₱1299</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42vc5shrr/42yyv2knc/WEB_Purple-Fudge-Cheesecake-8-04-1024x1024.png" alt="Purple Fudge Cheesecake">
+                        <h5>Purple Fudge Cheesecake</h5>
+                        <button class="btn price-btn" onclick="addToCart('Purple Fudge Cheesecake - 6 Inch', 899)">6 Inch - ₱899</button>
+                        <button class="btn price-btn" onclick="addToCart('Purple Fudge Cheesecake - 8 Inch', 1299)">8 Inch - ₱1299</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parfait Section -->
+        <div class="menu-section">
+            <h2 class="section-title">Parfait</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42rxknjmk/42zqumkdw/Berry%20Parfait.png" alt="Berry Parfait">
+                        <h5>Berry Parfait</h5>
+                        <button class="btn price-btn" onclick="addToCart('Berry Parfait - Small', 99)">Small - ₱99</button>
+                        <button class="btn price-btn" onclick="addToCart('Berry Parfait - Medium', 129)">Medium - ₱129</button>
+                        <button class="btn price-btn" onclick="addToCart('Berry Parfait - Large', 159)">Large - ₱159</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42rxknjmk/42zqumkdw/Nutty-Chocolate-Candy%20Parfait.png" alt="Nutty Chocolate Parfait">
+                        <h5>Nutty Chocolate Parfait</h5>
+                        <button class="btn price-btn" onclick="addToCart('Nutty Chocolate Parfait - Small', 99)">Small - ₱99</button>
+                        <button class="btn price-btn" onclick="addToCart('Nutty Chocolate Parfait - Medium', 129)">Medium - ₱129</button>
+                        <button class="btn price-btn" onclick="addToCart('Nutty Chocolate Parfait - Large', 159)">Large - ₱159</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42rxknjmk/42zqumkdw/Oreo-Mudpie%20Parfait.png" alt="Oreo Mudpie Parfait">
+                        <h5>Oreo Mudpie Parfait</h5>
+                        <button class="btn price-btn" onclick="addToCart('Oreo Mudpie Parfait - Small', 99)">Small - ₱99</button>
+                        <button class="btn price-btn" onclick="addToCart('Oreo Mudpie Parfait - Medium', 129)">Medium - ₱129</button>
+                        <button class="btn price-btn" onclick="addToCart('Oreo Mudpie Parfait - Large', 159)">Large - ₱159</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42rxknjmk/42zqumkdw/Purple-Dream%20Parfait.png" alt="Purple Dream Parfait">
+                        <h5>Purple Dream Parfait</h5>
+                        <button class="btn price-btn" onclick="addToCart('Purple Dream Parfait - Small', 99)">Small - ₱99</button>
+                        <button class="btn price-btn" onclick="addToCart('Purple Dream Parfait - Medium', 129)">Medium - ₱129</button>
+                        <button class="btn price-btn" onclick="addToCart('Purple Dream Parfait - Large', 159)">Large - ₱159</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Milkshake Section -->
+        <div class="menu-section">
+            <h2 class="section-title">Milkshake</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42zqvdqhy/42zqvhhnr/hot-fudge-milkshake.png" alt="Hot Fudge Milkshake">
+                        <h5>Hot Fudge Milkshake</h5>
+                        <button class="btn price-btn" onclick="addToCart('Hot Fudge Milkshake - Small', 75)">Small - ₱75</button>
+                        <button class="btn price-btn" onclick="addToCart('Hot Fudge Milkshake - Medium', 95)">Medium - ₱95</button>
+                        <button class="btn price-btn" onclick="addToCart('Hot Fudge Milkshake - Large', 115)">Large - ₱115</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42zqvdqhy/42zqvhhnr/caramel-moolatte-milkshake.png" alt="Caramel Chocolate Milkshake">
+                        <h5>Caramel Chocolate Milkshake</h5>
+                        <button class="btn price-btn" onclick="addToCart('Caramel Chocolate Milkshake - Small', 75)">Small - ₱75</button>
+                        <button class="btn price-btn" onclick="addToCart('Caramel Chocolate Milkshake - Medium', 95)">Medium - ₱95</button>
+                        <button class="btn price-btn" onclick="addToCart('Caramel Chocolate Milkshake - Large', 115)">Large - ₱115</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42zqvdqhy/42zqvg87b/mocha-moolatte-milkshake.png" alt="Mocha Chocolate Milkshake">
+                        <h5>Mocha Chocolate Milkshake</h5>
+                        <button class="btn price-btn" onclick="addToCart('Mocha Chocolate Milkshake - Small', 75)">Small - ₱75</button>
+                        <button class="btn price-btn" onclick="addToCart('Mocha Chocolate Milkshake - Medium', 95)">Medium - ₱95</button>
+                        <button class="btn price-btn" onclick="addToCart('Mocha Chocolate Milkshake - Large', 115)">Large - ₱115</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="menu-item">
+                        <img src="https://assets.onecompiler.app/42zqvdqhy/42zqvdsvt/strawberry-milkshake.png" alt="Strawberry Milkshake">
+                        <h5>Strawberry Milkshake</h5>
+                        <button class="btn price-btn" onclick="addToCart('Strawberry Milkshake - Small', 75)">Small - ₱75</button>
+                        <button class="btn price-btn" onclick="addToCart('Strawberry Milkshake - Medium', 95)">Medium - ₱95</button>
+                        <button class="btn price-btn" onclick="addToCart('Strawberry Milkshake - Large', 115)">Large - ₱115</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-2">PRIVACY STATEMENT &nbsp;&nbsp;|&nbsp;&nbsp;TERMS & CONDITIONS &nbsp;&nbsp;|&nbsp;&nbsp;ACCESSIBILITY STATEMENT &nbsp;&nbsp;|&nbsp;&nbsp;SITEMAP</p>
+                    <p class="mb-2">&copy; The PP, Pitch Parfait, Ice cream shaped logo, PP logo, Classic Swirls, Special Swirls, Royal Swirls, and other related trademarks are owned by Pitch Parfait Enterprises © 2024. Products and Menus may vary by location; not all products listed are available in all locations.</p>
+                    <p>For more information, visit our <a href="about.html">About Us</a> page.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase Configuration -->
+    <script type="module" src="../database/firebase-config.js"></script>
+    
+    <!-- Cart functionality with inventory integration -->
+    <script type="module">
+        import { firebase } from '../database/firebase-config.js';
+
+        let inventoryData = {};
+        let menuItems = [];
+
+        // Initialize the menu with inventory data
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMenu();
+        });
+
+        async function initializeMenu() {
+            try {
+                await loadInventory();
+                updateMenuItems();
+            } catch (error) {
+                console.error('Error loading inventory:', error);
+            }
+        }
+
+        async function loadInventory() {
+            try {
+                const inventoryRef = firebase.collection(firebase.db, 'inventory');
+                const snapshot = await firebase.getDocs(inventoryRef);
+                
+                inventoryData = {};
+                snapshot.forEach((doc) => {
+                    const item = doc.data();
+                    inventoryData[item.name] = {
+                        id: doc.id,
+                        quantity: item.quantity,
+                        minStock: item.minStock,
+                        category: item.category
+                    };
+                });
+            } catch (error) {
+                console.error('Error loading inventory:', error);
+            }
+        }
+
+        function updateMenuItems() {
+            // Update all menu items with stock indicators
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                const itemName = item.querySelector('h5').textContent;
+                const stockInfo = findInventoryItem(itemName);
+                
+                if (stockInfo) {
+                    addStockIndicator(item, stockInfo);
+                    updateItemAvailability(item, stockInfo);
+                }
+            });
+        }
+
+        function findInventoryItem(menuItemName) {
+            // Try to find exact match first
+            for (const [inventoryName, data] of Object.entries(inventoryData)) {
+                if (inventoryName.toLowerCase().includes(menuItemName.toLowerCase()) ||
+                    menuItemName.toLowerCase().includes(inventoryName.toLowerCase())) {
+                    return data;
+                }
+            }
+            return null;
+        }
+
+        function addStockIndicator(menuItem, stockInfo) {
+            // Remove existing stock indicator
+            const existingIndicator = menuItem.querySelector('.stock-indicator');
+            if (existingIndicator) {
+                existingIndicator.remove();
+            }
+
+            const stockStatus = getStockStatus(stockInfo.quantity, stockInfo.minStock);
+            const statusClass = getStockStatusClass(stockStatus);
+
+            const indicator = document.createElement('div');
+            indicator.className = `stock-indicator ${statusClass}`;
+            indicator.textContent = stockStatus === 'Out of Stock' ? 'Out' : stockInfo.quantity;
+            indicator.title = `Stock: ${stockInfo.quantity} (Min: ${stockInfo.minStock})`;
+
+            menuItem.appendChild(indicator);
+        }
+
+        function updateItemAvailability(menuItem, stockInfo) {
+            if (stockInfo.quantity === 0) {
+                menuItem.classList.add('out-of-stock');
+                const buttons = menuItem.querySelectorAll('.price-btn');
+                buttons.forEach(btn => {
+                    btn.disabled = true;
+                    btn.textContent = 'Out of Stock';
+                });
+            } else {
+                menuItem.classList.remove('out-of-stock');
+                const buttons = menuItem.querySelectorAll('.price-btn');
+                buttons.forEach(btn => {
+                    btn.disabled = false;
+                });
+            }
+        }
+
+        function getStockStatus(quantity, minStock) {
+            if (quantity === 0) return 'Out of Stock';
+            if (quantity <= minStock) return 'Low Stock';
+            if (quantity <= minStock * 2) return 'Medium Stock';
+            return 'High Stock';
+        }
+
+        function getStockStatusClass(status) {
+            switch (status) {
+                case 'Out of Stock': return 'stock-out';
+                case 'Low Stock': return 'stock-low';
+                case 'Medium Stock': return 'stock-medium';
+                case 'High Stock': return 'stock-high';
+                default: return 'stock-medium';
+            }
+        }
+
+        function addToCart(item, price) {
+            // Check if item is in stock
+            const stockInfo = findInventoryItem(item);
+            if (stockInfo && stockInfo.quantity === 0) {
+                alert('Sorry, this item is currently out of stock.');
+                return;
+            }
+
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let existingItem = cart.find(cartItem => cartItem.name === item);
+
+            if (existingItem) {
+                // Check if adding one more would exceed stock
+                if (stockInfo && existingItem.quantity >= stockInfo.quantity) {
+                    alert('Sorry, you cannot add more of this item. Limited stock available.');
+                    return;
+                }
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name: item, price: price, quantity: 1 });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(item + ' has been added to your cart!');
+        }
+
+        // Make addToCart globally available
+        window.addToCart = addToCart;
+    </script>
+</body>
+</html>

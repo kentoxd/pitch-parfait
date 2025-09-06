@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Parfait - About Us</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Custom Fonts -->
+    <style>
+        @font-face {
+            font-family: sweetaffogato;
+            src: url("fonts/sweetaffogato.ttf");
+        }
+
+        @font-face {
+            font-family: sundaebite;
+            src: url("fonts/sundaebite.otf");
+        }
+
+        @font-face {
+            font-family: parfait;
+            src: url("fonts/parfait.ttf");
+        }
+
+        @font-face {
+            font-family: bakeryroast;
+            src: url("fonts/bakeryroast.ttf");
+        }
+
+        @font-face {
+            font-family: avocadodiet;
+            src: url("fonts/avocadodiet.ttf");
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(to right, #C8A8E9, #F6BCBA);
+        }
+
+        .navbar-brand {
+            font-family: bakeryroast;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            font-family: bakeryroast;
+            font-size: 1.2rem;
+            color: #ba1b59 !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #9c5479 !important;
+        }
+
+        .about-section {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-family: avocadodiet;
+            color: #ba1b59;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .mission-vision {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 5px solid #ba1b59;
+        }
+
+        .team-member {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-member img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .team-member h5 {
+            color: #ba1b59;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member p {
+            color: #734f96;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-info {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .contact-info h3 {
+            color: #ba1b59;
+            font-family: avocadodiet;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info p {
+            color: #734f96;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer {
+            background-color: #ffcae9;
+            color: #ba1b59;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #ba1b59;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #ba1b59;
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffcae9;">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://assets.onecompiler.app/42rxknjmk/42xz8547e/Pitch%20Parfait%20Logo.png" 
+                     height="60" width="80" alt="Pitch Parfait Logo">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="menu.html">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="directory.html">Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="faqs.html">FAQs</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">
+                            <i class="bi bi-cart3" style="font-size: 1.5rem;"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">
+                            <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Content -->
+    <div class="container">
+        <!-- Mission & Vision -->
+        <div class="about-section">
+            <div class="quote">
+                "Make the world a better place, one scoop at a time."
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="mission-vision">
+                        <h3 style="color: #ba1b59; font-family: avocadodiet;">Mission</h3>
+                        <p>To serve delicious frozen treats that are worth a customer's every penny using the highest quality ingredients and provide top-tier customer service.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="mission-vision">
+                        <h3 style="color: #ba1b59; font-family: avocadodiet;">Vision</h3>
+                        <p>To become a memorable place that fosters positive memories and delicious frozen treats.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Company Background -->
+        <div class="about-section">
+            <h2 class="section-title">Company Background</h2>
+            <div class="row">
+                <div class="col-lg-8">
+                    <p style="color: #734f96; font-size: 1.1rem; line-height: 1.6;">
+                        Pitch Parfait Ice Cream Parlor is a local ice cream shop owned by Pitch Parfait Enterprises. 
+                        We are dedicated to making tasty frozen treats. In our shop, customer satisfaction is a priority. 
+                        We focus on good customer service and maintaining a safe and clean environment for all. Our mission 
+                        is to bring happiness to the community with each scoop and to provide a place where families and 
+                        friends can enjoy a sweet treat together. We believe in deliciousness, efficiency, cleanliness, 
+                        and community involvement.
+                    </p>
+                    <p style="color: #734f96; font-size: 1.1rem; line-height: 1.6;">
+                        Pitch Parfait Enterprises headquartered in Quezon City, Metro Manila, Philippines is the owner of 
+                        Pitch Parfait Ice Cream Parlor and all its branches nationwide. The company was established in 2017 
+                        by a group of ice cream connoisseurs: Sophia, George, Owen, Wendell, and Camilla.
+                    </p>
+                </div>
+                <div class="col-lg-4">
+                    <img src="https://assets.onecompiler.app/42vc5shrr/4324t9ns7/410659496_256978750505199_209334927750791460_n.jpg" 
+                         class="img-fluid rounded" alt="Pitch Parfait Team">
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Section -->
+        <div class="about-section">
+            <h2 class="section-title">Meet Our Team</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="team-member">
+                        <img src="https://assets.onecompiler.app/42vc5shrr/4324t9ns7/410659496_256978750505199_209334927750791460_n.jpg" alt="George Adrian Aspecto">
+                        <h5>George Adrian Aspecto</h5>
+                        <p><strong>Position:</strong> Head of Creative Department</p>
+                        <p><strong>Age:</strong> 19 Years Old</p>
+                        <p><strong>Favorite Ice Cream:</strong> Berry Choco</p>
+                        <p><strong>Motto:</strong> "Just keep swimming." - Dory</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="team-member">
+                        <img src="https://assets.onecompiler.app/42rxgas4e/4324tu85g/Screenshot_20241205_125901_Docs.jpg" alt="Sophia Jazmine Z. Ampoloquio">
+                        <h5>Sophia Jazmine Z. Ampoloquio</h5>
+                        <p><strong>Position:</strong> Head of Operations / Executive Department</p>
+                        <p><strong>Age:</strong> 18</p>
+                        <p><strong>Favorite Ice Cream:</strong> Cookies & Cream</p>
+                        <p><strong>Motto:</strong> Everyday is a second chance</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="team-member">
+                        <img src="https://assets.onecompiler.app/42rxgas4e/4324tu85g/Screenshot_20241205_125920_Docs.jpg" alt="Owen Campued">
+                        <h5>Owen Campued</h5>
+                        <p><strong>Position:</strong> Head of Marketing</p>
+                        <p><strong>Age:</strong> 18 Years Old</p>
+                        <p><strong>Favorite Ice Cream:</strong> Choco Shavings</p>
+                        <p><strong>Motto:</strong> Shabushabu</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="team-member">
+                        <img src="https://assets.onecompiler.app/42rxgas4e/4324tu85g/Screenshot_20241205_130222_Docs.jpg" alt="Wendell John Pingol">
+                        <h5>Wendell John Pingol</h5>
+                        <p><strong>Position:</strong> Head of Security</p>
+                        <p><strong>Age:</strong> 18 Years Old</p>
+                        <p><strong>Favorite Ice Cream:</strong> Oreo Chocolate</p>
+                        <p><strong>Motto:</strong> ge</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="team-member">
+                        <img src="https://assets.onecompiler.app/42rxgas4e/4324tu85g/Screenshot_20241205_130218_Docs.jpg" alt="Ma Rosa Camilla Sevilla">
+                        <h5>Ma Rosa Camilla Sevilla</h5>
+                        <p><strong>Position:</strong> Top</p>
+                        <p><strong>Age:</strong> 20 Years Old</p>
+                        <p><strong>Favorite Ice Cream:</strong> Avocado plain</p>
+                        <p><strong>Motto:</strong> Due tomorrow do tomorrow</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="about-section">
+            <div class="contact-info">
+                <h3>Contact Us</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p><i class="bi bi-geo-alt-fill"></i> <strong>Address:</strong></p>
+                        <p>16/F Aurora Tower, Aurora Boulevard, Araneta Center, Quezon City 1100 Metro Manila</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><i class="bi bi-telephone-fill"></i> <strong>Landline:</strong></p>
+                        <p>+63 (2) 8 715 4222</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><i class="bi bi-envelope-fill"></i> <strong>Email:</strong></p>
+                        <p>pitchparfait.ent@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-2">PRIVACY STATEMENT &nbsp;&nbsp;|&nbsp;&nbsp;TERMS & CONDITIONS &nbsp;&nbsp;|&nbsp;&nbsp;ACCESSIBILITY STATEMENT &nbsp;&nbsp;|&nbsp;&nbsp;SITEMAP</p>
+                    <p class="mb-2">&copy; The PP, Pitch Parfait, Ice cream shaped logo, PP logo, Classic Swirls, Special Swirls, Royal Swirls, and other related trademarks are owned by Pitch Parfait Enterprises © 2024. Products and Menus may vary by location; not all products listed are available in all locations.</p>
+                    <p>For more information, visit our <a href="about.html">About Us</a> page.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
