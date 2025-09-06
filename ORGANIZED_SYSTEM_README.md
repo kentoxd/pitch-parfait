@@ -1,5 +1,7 @@
 # Pitch Parfait - Organized Inventory Management System
 
+PAG OOPEN SA ADMIN ANG USER: wendell PASS: pingol
+
 ## 🎯 **System Overview**
 
 Your Pitch Parfait website now has a **professionally organized** inventory management system with **admin authentication** and **clean folder structure**.
