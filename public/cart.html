@@ -10,51 +10,10 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
-    <!-- Custom Fonts -->
     <style>
-        @font-face {
-            font-family: sweetaffogato;
-            src: url("fonts/sweetaffogato.ttf");
-        }
-
-        @font-face {
-            font-family: sundaebite;
-            src: url("fonts/sundaebite.otf");
-        }
-
-        @font-face {
-            font-family: parfait;
-            src: url("fonts/parfait.ttf");
-        }
-
-        @font-face {
-            font-family: bakeryroast;
-            src: url("fonts/bakeryroast.ttf");
-        }
-
-        @font-face {
-            font-family: avocadodiet;
-            src: url("fonts/avocadodiet.ttf");
-        }
-
         body {
             font-family: Arial, Helvetica, sans-serif;
             background: linear-gradient(to right, #C8A8E9, #F6BCBA);
-        }
-
-        .navbar-brand {
-            font-family: bakeryroast;
-            font-size: 1.5rem;
-        }
-
-        .navbar-nav .nav-link {
-            font-family: bakeryroast;
-            font-size: 1.2rem;
-            color: #ba1b59 !important;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #9c5479 !important;
         }
 
         .cart-section {
@@ -66,7 +25,6 @@
         }
 
         .section-title {
-            font-family: avocadodiet;
             color: #ba1b59;
             font-size: 2.5rem;
             margin-bottom: 2rem;
@@ -82,53 +40,6 @@
             border: 1px solid #e9ecef;
         }
 
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .quantity-btn {
-            background-color: #ba1b59;
-            border-color: #ba1b59;
-            color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .quantity-btn:hover {
-            background-color: #9c5479;
-            border-color: #9c5479;
-            color: white;
-        }
-
-        .quantity-display {
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            padding: 0.5rem 1rem;
-            min-width: 50px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .remove-btn {
-            background-color: #dc3545;
-            border-color: #dc3545;
-            color: white;
-        }
-
-        .remove-btn:hover {
-            background-color: #c82333;
-            border-color: #bd2130;
-            color: white;
-        }
-
         .total-section {
             background-color: #fff;
             border-radius: 15px;
@@ -136,12 +47,6 @@
             margin: 2rem 0;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border: 2px solid #ba1b59;
-        }
-
-        .total-price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #ba1b59;
         }
 
         .checkout-btn {
@@ -157,24 +62,6 @@
             background-color: #9c5479;
             border-color: #9c5479;
             color: white;
-        }
-
-        .checkout-btn:disabled {
-            background-color: #6c757d;
-            border-color: #6c757d;
-            cursor: not-allowed;
-        }
-
-        .empty-cart {
-            text-align: center;
-            padding: 3rem;
-            color: #ba1b59;
-        }
-
-        .empty-cart i {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
         }
 
         .receipt {
@@ -197,31 +84,16 @@
             padding: 0.5rem 0;
         }
 
-        .footer {
-            background-color: #ffcae9;
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
             color: #ba1b59;
-            padding: 2rem 0;
-            margin-top: 3rem;
         }
 
-        .footer a {
-            color: #ba1b59;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        .btn-primary {
-            background-color: #ba1b59;
-            border-color: #ba1b59;
-        }
-
-        .btn-primary:hover {
-            background-color: #9c5479;
-            border-color: #9c5479;
+        .empty-cart i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
         }
     </style>
 </head>
@@ -256,7 +128,7 @@
                         <a class="nav-link" href="faqs.html">FAQs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="inventory.html">Inventory</a>
+                        <a class="nav-link" href="../admin/login.html">Admin</a>
                     </li>
                 </ul>
                 
@@ -298,7 +170,7 @@
             <div id="total-section" class="total-section" style="display: none;">
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <h4 class="total-price mb-0" id="total-price">Total: ₱0.00</h4>
+                        <h4 class="mb-0" id="total-price">Total: ₱0.00</h4>
                     </div>
                     <div class="col-md-6 text-end">
                         <button class="btn checkout-btn" id="checkout-btn" onclick="showPaymentOptions()">
@@ -306,13 +178,6 @@
                         </button>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Back to Menu Button -->
-            <div class="text-center mt-4">
-                <a href="menu.html" class="btn btn-outline-primary">
-                    <i class="bi bi-arrow-left"></i> Back to Menu
-                </a>
             </div>
             
             <!-- Receipt Section -->
@@ -323,13 +188,13 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" style="background-color: #ffcae9; color: #ba1b59; padding: 2rem 0; margin-top: 3rem;">
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
                     <p class="mb-2">PRIVACY STATEMENT &nbsp;&nbsp;|&nbsp;&nbsp;TERMS & CONDITIONS &nbsp;&nbsp;|&nbsp;&nbsp;ACCESSIBILITY STATEMENT &nbsp;&nbsp;|&nbsp;&nbsp;SITEMAP</p>
                     <p class="mb-2">&copy; The PP, Pitch Parfait, Ice cream shaped logo, PP logo, Classic Swirls, Special Swirls, Royal Swirls, and other related trademarks are owned by Pitch Parfait Enterprises © 2024. Products and Menus may vary by location; not all products listed are available in all locations.</p>
-                    <p>For more information, visit our <a href="about.html">About Us</a> page.</p>
+                    <p>For more information, visit our <a href="about.html" style="color: #ba1b59; text-decoration: none; font-weight: bold;">About Us</a> page.</p>
                 </div>
             </div>
         </div>
@@ -338,33 +203,35 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Firebase Configuration -->
-    <script type="module" src="../database/firebase-config.js"></script>
-    
-    <!-- Cart functionality with inventory integration -->
+    <!-- Firebase SDK -->
     <script type="module">
-        import { firebase } from '../database/firebase-config.js';
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, getDocs, doc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBeopoPYcU1y66sCpE2g8ud9Pe67kpMy70",
+            authDomain: "pitchpar-535ee.firebaseapp.com",
+            projectId: "pitchpar-535ee",
+            storageBucket: "pitchpar-535ee.firebasestorage.app",
+            messagingSenderId: "116894384863",
+            appId: "1:116894384863:web:9a765cd68dae0d39015f6a",
+            measurementId: "G-R4SNKYGXXN"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
         let inventoryData = {};
 
         // Initialize cart with inventory data
         document.addEventListener('DOMContentLoaded', function() {
-            initializeCart();
+            loadInventory();
         });
-
-        async function initializeCart() {
-            try {
-                await loadInventory();
-                displayCart();
-            } catch (error) {
-                console.error('Error loading inventory:', error);
-            }
-        }
 
         async function loadInventory() {
             try {
-                const inventoryRef = firebase.collection(firebase.db, 'inventory');
-                const snapshot = await firebase.getDocs(inventoryRef);
+                const inventoryRef = collection(db, 'inventory');
+                const snapshot = await getDocs(inventoryRef);
                 
                 inventoryData = {};
                 snapshot.forEach((doc) => {
@@ -376,24 +243,66 @@
                         category: item.category
                     };
                 });
+                
+                console.log('Inventory loaded:', Object.keys(inventoryData).length, 'items');
+                displayCart();
             } catch (error) {
                 console.error('Error loading inventory:', error);
+                displayCart();
             }
         }
 
         function findInventoryItem(cartItemName) {
-            // Try to find exact match first
+            const baseName = cartItemName.replace(/\s*-\s*(Small|Medium|Large|6 Inch|8 Inch).*$/i, '').trim();
+            
             for (const [inventoryName, data] of Object.entries(inventoryData)) {
-                if (inventoryName.toLowerCase().includes(cartItemName.toLowerCase()) ||
-                    cartItemName.toLowerCase().includes(inventoryName.toLowerCase())) {
+                if (inventoryName.toLowerCase() === baseName.toLowerCase()) {
                     return data;
                 }
             }
             return null;
         }
-    </script>
-    
-    <script>
+
+        async function updateStockInDatabase(cartItems) {
+            try {
+                console.log('Updating stock for items:', cartItems);
+                const updatePromises = [];
+                
+                for (const cartItem of cartItems) {
+                    const baseName = cartItem.name.replace(/\s*-\s*(Small|Medium|Large|6 Inch|8 Inch).*$/i, '').trim();
+                    const stockInfo = inventoryData[baseName];
+                    
+                    console.log(`Processing ${cartItem.name} -> ${baseName}`, stockInfo);
+                    
+                    if (stockInfo) {
+                        const newQuantity = stockInfo.quantity - cartItem.quantity;
+                        console.log(`Stock update: ${stockInfo.quantity} - ${cartItem.quantity} = ${newQuantity}`);
+                        
+                        if (newQuantity >= 0) {
+                            const itemRef = doc(db, 'inventory', stockInfo.id);
+                            updatePromises.push(
+                                updateDoc(itemRef, {
+                                    quantity: newQuantity,
+                                    lastUpdated: new Date()
+                                })
+                            );
+                            
+                            // Update local inventory data
+                            inventoryData[baseName].quantity = newQuantity;
+                            console.log(`Updated local stock for ${baseName} to ${newQuantity}`);
+                        }
+                    }
+                }
+                
+                await Promise.all(updatePromises);
+                console.log('All stock updates completed successfully');
+                return true;
+            } catch (error) {
+                console.error('Error updating stock:', error);
+                return false;
+            }
+        }
+
         function displayCart() {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             let cartContainer = document.getElementById('cart-container');
@@ -422,21 +331,17 @@
                             <p class="mb-0 text-muted">₱${item.price} each</p>
                         </div>
                         <div class="col-md-3">
-                            <div class="quantity-controls">
-                                <button class="btn quantity-btn" onclick="updateQuantity(${index}, -1)">
-                                    <i class="bi bi-dash"></i>
-                                </button>
-                                <span class="quantity-display">${item.quantity}</span>
-                                <button class="btn quantity-btn" onclick="updateQuantity(${index}, 1)">
-                                    <i class="bi bi-plus"></i>
-                                </button>
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-sm btn-outline-secondary" onclick="updateQuantity(${index}, -1)">-</button>
+                                <span class="fw-bold">${item.quantity}</span>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="updateQuantity(${index}, 1)">+</button>
                             </div>
                         </div>
                         <div class="col-md-2 text-end">
                             <strong>₱${(item.price * item.quantity).toFixed(2)}</strong>
                         </div>
                         <div class="col-md-1 text-end">
-                            <button class="btn remove-btn" onclick="removeItem(${index})">
+                            <button class="btn btn-sm btn-danger" onclick="removeItem(${index})">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </div>
@@ -457,7 +362,6 @@
             let item = cart[index];
             const newQuantity = item.quantity + change;
 
-            // Check inventory availability
             const stockInfo = findInventoryItem(item.name);
             if (stockInfo && newQuantity > stockInfo.quantity) {
                 alert(`Sorry, only ${stockInfo.quantity} items available in stock.`);
@@ -481,7 +385,7 @@
             displayCart();
         }
 
-        function showPaymentOptions() {
+        async function showPaymentOptions() {
             let totalPrice = calculateTotalPrice();
             let discount = 0;
 
@@ -502,17 +406,17 @@
                 let userChoice = prompt(`Choose payment option:\n1. Pay Here/Online Cash\n2. Pay Later/Delivery\nTotal Price: ₱${totalPrice.toFixed(2)}`);
                 if (userChoice == 1) {
                     validChoice = true;
-                    handleOnlineCash(totalPrice, discount);
+                    await handleOnlineCash(totalPrice, discount);
                 } else if (userChoice == 2) {
                     validChoice = true;
-                    handleDelivery(totalPrice, discount);
+                    await handleDelivery(totalPrice, discount);
                 } else {
                     alert("Invalid option. Please choose 1 or 2.");
                 }
             }
         }
 
-        function handleOnlineCash(totalPrice, discount) {
+        async function handleOnlineCash(totalPrice, discount) {
             let amountPaid = prompt(`Enter amount to pay: (Total: ₱${totalPrice.toFixed(2)})`);
 
             if (!amountPaid || isNaN(amountPaid)) {
@@ -529,16 +433,42 @@
 
             let change = amountPaid - totalPrice;
             alert(`Change to be returned: ₱${change.toFixed(2)}`);
-            generateReceipt('Pay Here/Online Cash', totalPrice, amountPaid, discount, change);
+            
+            // Update stock in database before generating receipt
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            console.log('Starting stock update for cart:', cart);
+            const stockUpdated = await updateStockInDatabase(cart);
+            
+            if (stockUpdated) {
+                generateReceipt('Pay Here/Online Cash', totalPrice, amountPaid, discount, change, cart);
+            } else {
+                alert('Error updating inventory. Please try again.');
+            }
         }
 
-        function handleDelivery(totalPrice, discount) {
-            generateReceipt('Pay Later/Delivery', totalPrice, 0, discount);
+        async function handleDelivery(totalPrice, discount) {
+            // Update stock in database before generating receipt
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            console.log('Starting stock update for cart:', cart);
+            const stockUpdated = await updateStockInDatabase(cart);
+            
+            if (stockUpdated) {
+                generateReceipt('Pay Later/Delivery', totalPrice, 0, discount, 0, cart);
+            } else {
+                alert('Error updating inventory. Please try again.');
+            }
         }
 
-        function generateReceipt(paymentMethod, totalPrice, amountPaid, discount, change = 0) {
+        function generateReceipt(paymentMethod, totalPrice, amountPaid, discount, change = 0, cartItems) {
+            console.log('Generating receipt with items:', cartItems);
+            
             let receipt = document.getElementById('receipt');
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            if (!receipt) {
+                console.error('Receipt element not found!');
+                alert('Error: Receipt element not found. Please refresh the page and try again.');
+                return;
+            }
             
             let now = new Date();
             let timestamp = now.toLocaleString();
@@ -571,7 +501,7 @@
                 <div class="receipt-items">
             `;
             
-            cart.forEach(item => {
+            cartItems.forEach(item => {
                 let itemTotal = item.price * item.quantity;
                 receiptContent += `
                     <div class="receipt-item">
@@ -589,12 +519,17 @@
                 <hr>
                 <div class="text-center">
                     <h4 class="text-success">Thank you for your purchase!</h4>
+                    <p class="text-info">✅ Stock levels have been updated in the system.</p>
                     ${paymentMethod === 'Pay Later/Delivery' ? '<p class="text-info">Your order will be delivered soon!</p>' : ''}
                 </div>
             `;
 
             receipt.innerHTML = receiptContent;
             receipt.style.display = 'block';
+            
+            console.log('Receipt generated and displayed');
+            console.log('Receipt element:', receipt);
+            console.log('Receipt style.display:', receipt.style.display);
             
             // Clear cart after successful purchase
             localStorage.removeItem('cart');
@@ -606,8 +541,10 @@
             return cart.reduce((total, item) => total + item.price * item.quantity, 0);
         }
 
-        // Initialize cart display when page loads
-        displayCart();
+        // Make functions globally available
+        window.updateQuantity = updateQuantity;
+        window.removeItem = removeItem;
+        window.showPaymentOptions = showPaymentOptions;
     </script>
 </body>
 </html>
