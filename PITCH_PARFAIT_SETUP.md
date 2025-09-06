@@ -250,4 +250,4 @@ Your Pitch Parfait inventory management system is now ready to use. The system w
 - Generate reports and analytics
 - Provide better customer experience
 
-For any questions or issues, refer to the Firebase documentation or check the browser console for error messages.
+For any questions or issues, refer to the Firebase documentation or check the browser console for error messages..
