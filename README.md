@@ -73,27 +73,6 @@ This is a complete Bootstrap remake of the Pitch Parfait ice cream parlor websit
 - Edge (latest)
 - Mobile browsers
 
-## 📁 File Structure
-
-```
-Bootstrap Website/
-├── index.html          # Home page
-├── menu.html           # Menu page
-├── about.html          # About page
-├── cart.html           # Shopping cart
-├── profile.html        # Login/Registration
-├── faqs.html           # FAQ page
-├── facts.html          # Nutrition facts
-├── directory.html      # Branch locations
-├── fonts/              # Custom font files
-│   ├── avocadodiet.ttf
-│   ├── bakeryroast.ttf
-│   ├── parfait.ttf
-│   ├── sundaebite.otf
-│   └── sweetaffogato.ttf
-└── README.md           # This file
-```
-
 ## 🚀 Getting Started
 
 1. **Open the website**: Simply open `index.html` in any modern web browser
